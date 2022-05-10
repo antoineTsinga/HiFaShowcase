@@ -20,19 +20,19 @@ public class AdminService {
         return  admins;
     }
 
-    public Admin getAdminsById(Long id){
+    public Admin getAdminById(Long id){
         return adminRepository.findById(id).get();
     }
 
-    public void save(Admin admin){
+    public void saveAdmin(Admin admin){
         adminRepository.save(admin);
     }
 
-    public void delete(Long id){
+    public void deleteAdmin(Long id){
         adminRepository.deleteById(id);
     }
 
-    public void update(Admin admin, Long id){
+    public void updateAdmin(Admin admin, Long id){
         admin.setId(id);
         adminRepository.save(admin);
     }
