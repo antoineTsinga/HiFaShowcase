@@ -26,8 +26,9 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/items").permitAll()
-                .antMatchers("/users").authenticated()
+                .antMatchers("/users").permitAll()
+                .antMatchers("/orders").permitAll()
+                .antMatchers("/items").authenticated()
                 .and()
                 .httpBasic();
     }
