@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class ClientController extends UserController {
+public class ClientController {
     @Autowired
     private ClientService clientService;
 
