@@ -20,7 +20,7 @@ public class OrderController {
 
     @GetMapping(value = "/orders/{id}")
     private Order getOrder(@PathVariable("id") Long id) {
-        return orderService.getOrdersById(id);
+        return orderService.getOrderById(id);
     }
 
     @DeleteMapping(value = "/orders/{id}")

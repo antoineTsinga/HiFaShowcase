@@ -20,7 +20,7 @@ public class OrderService {
         return  orders;
     }
 
-    public Order getOrdersById(Long id){
+    public Order getOrderById(Long id){
         return orderRepository.findById(id).get();
     }
 

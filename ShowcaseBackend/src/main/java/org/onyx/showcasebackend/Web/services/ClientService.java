@@ -4,9 +4,11 @@ package org.onyx.showcasebackend.Web.services;
 import org.onyx.showcasebackend.dao.ClientRepository;
 import org.onyx.showcasebackend.entities.Client;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ClientService extends UserService {
     @Autowired
     ClientRepository clientRepository;

@@ -3,9 +3,11 @@ package org.onyx.showcasebackend.Web.services;
 import org.onyx.showcasebackend.dao.FaqRepository;
 import org.onyx.showcasebackend.entities.Faq;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FaqService {
     @Autowired
     FaqRepository faqRepository;
