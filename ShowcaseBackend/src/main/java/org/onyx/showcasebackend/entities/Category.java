@@ -1,5 +1,9 @@
 package org.onyx.showcasebackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(type = "int", allowableValues = {"0", "1", "2", "3","4","6"})
 public enum Category {
     CHEMISES(0),
     JEANS(1),
@@ -8,7 +12,7 @@ public enum Category {
     BAS(4),
     TOPS(5),
     ACCESSOIRES(6);
-
+    @JsonValue
     private final int code;
 
     Category(int code){
