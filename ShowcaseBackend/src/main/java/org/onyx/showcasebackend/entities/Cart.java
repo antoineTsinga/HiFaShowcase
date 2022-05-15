@@ -1,6 +1,13 @@
 package org.onyx.showcasebackend.entities;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+
 import javax.persistence.*;
+import java.io.IOException;
 import java.util.Collection;
 
 @Entity
@@ -10,8 +17,11 @@ public class Cart {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToMany(mappedBy = "")
-    private Collection<Item> articles;
+    @ManyToMany()
+    private Collection<Item> items;
+
+    @OneToOne
+    private Client client;
 
     public Long getId() {
         return id;
@@ -24,18 +34,26 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(Collection<Item> articles) {
-        this.articles = articles;
+    public Cart(Collection<Item> articles, Client client) {
+        this.items = articles;
+        this.client = client;
     }
-
 
 
 
     public Collection<Item> getArticles() {
-        return articles;
+        return items;
     }
 
     public void setArticles(Collection<Item> articles) {
-        this.articles = articles;
+        this.items = articles;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }
