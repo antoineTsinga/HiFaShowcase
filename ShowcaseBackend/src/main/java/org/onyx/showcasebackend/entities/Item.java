@@ -1,11 +1,14 @@
 package org.onyx.showcasebackend.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+
+import static org.onyx.showcasebackend.entities.Category.CHEMISES;
 
 @Entity
 public class Item {
@@ -20,6 +23,8 @@ public class Item {
     private boolean isInGallery;
     private String image;
     @ManyToOne()
+    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JsonIdentityReference(alwaysAsId=true)
     private FashionCollection fashionCollection;
     @JsonIgnore
     @ManyToMany(mappedBy = "")
@@ -30,6 +35,7 @@ public class Item {
     private Genre genre;
 
 
+
     public Long getId() {
         return id;
     }
@@ -37,7 +43,6 @@ public class Item {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public Item() {
     }

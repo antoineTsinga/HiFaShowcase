@@ -24,7 +24,7 @@ public class Order {
     @ManyToOne
     @JoinColumn()
     @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
+    @JsonIdentityReference(alwaysAsId=true)
     private Client client;
 
     @PrePersist
