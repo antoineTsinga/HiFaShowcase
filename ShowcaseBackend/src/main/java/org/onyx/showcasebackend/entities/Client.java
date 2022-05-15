@@ -41,13 +41,7 @@ public class Client extends User{
         this.cart = cart;
     }
 
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
 
-    @Override
-    public void setId(Long id) {
-        super.setId(id);
-    }
+
+
 }

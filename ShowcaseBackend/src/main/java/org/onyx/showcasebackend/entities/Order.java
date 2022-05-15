@@ -1,5 +1,8 @@
 package org.onyx.showcasebackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -19,7 +22,9 @@ public class Order {
     private Date createdDate;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn()
+    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JsonIdentityReference(alwaysAsId=true) // otherwise first ref as POJO, others as id
     private Client client;
 
     @PrePersist
