@@ -3,9 +3,9 @@ package org.onyx.showcasebackend.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -26,6 +26,9 @@ public class Order {
     @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
     @JsonIdentityReference(alwaysAsId=true)
     private Client client;
+
+    @ManyToMany
+    private ArrayList<Item> Items;
 
     @PrePersist
     void preInsert() {
@@ -48,7 +51,8 @@ public class Order {
         this.id = id;
     }
 
-    public Order() {
+    public Order(ArrayList<Item> items) {
+        Items = items;
     }
 
     public Optional<LocalDateTime> getCreatedDate() {
@@ -61,4 +65,11 @@ public class Order {
     }
 
 
+    public ArrayList<Item> getItems() {
+        return Items;
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        Items = items;
+    }
 }
