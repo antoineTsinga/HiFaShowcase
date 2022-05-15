@@ -1,6 +1,6 @@
 package org.onyx.showcasebackend.entities;
 
-public enum ItemCategory {
+public enum Category {
     CHEMISES,
     JEANS,
     ENSEMBLES,

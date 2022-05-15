@@ -19,19 +19,19 @@ public class CartController {
 
     // creating a get mapping that retrieves the detail of a specific cart
     @GetMapping("/carts/{id}")
-    private Cart getBooks(@PathVariable("id") long cartId) {
+    private Cart getCarts(@PathVariable("id") long cartId) {
         return cartService.getCartById(cartId);
     }
 
     // creating a deleted mapping that deletes a specified cart
     @DeleteMapping("/carts/{id}")
-    private void deleteBook(@PathVariable("id") long cartId) {
+    private void deleteCart(@PathVariable("id") long cartId) {
         cartService.deleteCart(cartId);
     }
 
     // creating post mapping that post the cart detail in the database
     @PostMapping("/carts")
-    private long saveBook(@RequestBody Cart cart) {
+    private long saveCart(@RequestBody Cart cart) {
         cartService.saveCart(cart);
         return cart.getId();
     }

@@ -19,19 +19,19 @@ public class ClientController {
 
     // creating a get mapping that retrieves the detail of a specific client
     @GetMapping("/clients/{id}")
-    private Client getBooks(@PathVariable("id") long clientId) {
+    private Client getClients(@PathVariable("id") long clientId) {
         return clientService.getClientById(clientId);
     }
 
     // creating a deleted mapping that deletes a specified client
     @DeleteMapping("/clients/{id}")
-    private void deleteBook(@PathVariable("id") long clientId) {
+    private void deleteClient(@PathVariable("id") long clientId) {
         clientService.deleteClient(clientId);
     }
 
     // creating post mapping that post the client detail in the database
     @PostMapping("/clients")
-    private long saveBook(@RequestBody Client client) {
+    private long saveClient(@RequestBody Client client) {
         clientService.saveClient(client);
         return client.getId();
     }
