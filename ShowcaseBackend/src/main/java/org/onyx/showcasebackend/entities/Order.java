@@ -15,16 +15,16 @@ import java.util.Optional;
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
     @ManyToOne
     @JoinColumn()
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JsonIdentityReference(alwaysAsId=true)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Client client;
 
     @ManyToMany
@@ -34,7 +34,7 @@ public class Order {
 
     }
 
-    public Order( Date createdDate, Client client, Collection<Item> items) {
+    public Order(Date createdDate, Client client, Collection<Item> items) {
         this.createdDate = createdDate;
         this.client = client;
         this.items = items;
@@ -45,12 +45,9 @@ public class Order {
         if (this.createdDate == null)
             this.createdDate = java.util.Date.from((LocalDateTime.now()).atZone(ZoneId.systemDefault()).toInstant());
     }
+
     public Client getClient() {
         return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
 
     public Long getId() {
@@ -61,16 +58,15 @@ public class Order {
         this.id = id;
     }
 
-
     public Optional<LocalDateTime> getCreatedDate() {
-        return null == this.createdDate ? Optional.empty() : Optional.of(LocalDateTime.ofInstant(this.createdDate.toInstant(), ZoneId.systemDefault()));
+        return null == this.createdDate ? Optional.empty()
+                : Optional.of(LocalDateTime.ofInstant(this.createdDate.toInstant(), ZoneId.systemDefault()));
     }
 
     public void setCreatedDate(LocalDateTime createdDate) {
 
         this.createdDate = java.util.Date.from(createdDate.atZone(ZoneId.systemDefault()).toInstant());
     }
-
 
     public Collection<Item> getItems() {
         return items;

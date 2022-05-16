@@ -2,34 +2,48 @@ package org.onyx.showcasebackend.entities;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
+@Table(name = "users")
 public  class  User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
 
     private String firstName;
     private String lastName;
+
+
     private Long tel;
     private String avatar;
+
+
     private String email;
+
 
     private String password;
 
 
+    @ManyToMany
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))
+    private Collection<Role> roles ;
+
     public User() {
     }
 
-    public User(String firstName, String lastName, Long tel, String avatar, String email,  String password) {
+    public User(String firstName, String lastName, Long tel, String avatar, String email, String password, Collection<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.tel = tel;
         this.avatar = avatar;
         this.email = email;
         this.password = password;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -56,6 +70,14 @@ public  class  User {
         this.lastName = lastName;
     }
 
+    public String getUsername() {
+        return email;
+    }
+
+    public void setUsername(String username) {
+        this.email = username;
+    }
+
     public Long getTel() {
         return tel;
     }
@@ -80,7 +102,6 @@ public  class  User {
         this.email = email;
     }
 
-
     public String getPassword() {
         return password;
     }
@@ -89,4 +110,12 @@ public  class  User {
         this.password = password;
     }
 
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
 }
