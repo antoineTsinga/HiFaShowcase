@@ -1,27 +1,28 @@
 package org.onyx.showcasebackend.entities;
 
 import javax.persistence.*;
-import java.sql.Date;
+;import java.util.Date;
+
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     private Date creationDate;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    private User user;
+
+    @ManyToOne
     private Client client;
 
-    public Client getClient() {
-        return client;
+    public User getUser() {
+        return user;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
 
     public Long getId() {
         return id;
@@ -34,9 +35,11 @@ public class Order {
     public Order() {
     }
 
-    public Order(Date creationDate) {
+    public Order(Date creationDate, User user) {
         this.creationDate = creationDate;
+        this.user = user;
     }
+
 
 
 

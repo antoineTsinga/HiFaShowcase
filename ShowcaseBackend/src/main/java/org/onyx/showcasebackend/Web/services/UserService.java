@@ -1,9 +1,12 @@
 package org.onyx.showcasebackend.Web.services;
 
+import org.onyx.showcasebackend.dao.RoleRepository;
 import org.onyx.showcasebackend.dao.UserRepository;
+import org.onyx.showcasebackend.entities.Role;
 import org.onyx.showcasebackend.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
