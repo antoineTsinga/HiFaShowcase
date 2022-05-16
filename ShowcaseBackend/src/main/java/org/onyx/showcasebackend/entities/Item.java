@@ -1,8 +1,14 @@
 package org.onyx.showcasebackend.entities;
 
 
+import com.fasterxml.jackson.annotation.*;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
+
+import static org.onyx.showcasebackend.entities.Category.CHEMISES;
 
 @Entity
 public class Item {
@@ -17,9 +23,18 @@ public class Item {
     private boolean isInGallery;
     private String image;
     @ManyToOne()
+    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JsonIdentityReference(alwaysAsId=true)
     private FashionCollection fashionCollection;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "")
+    private Collection<Cart> carts;
 
-    private static category category;
+    private Category category;
+
+    private Genre genre;
+
+
 
     public Long getId() {
         return id;
@@ -29,46 +44,20 @@ public class Item {
         this.id = id;
     }
 
-    private enum category{
-        CHEMISES(1),
-        JEANS(2),
-        ENSEMBLES(3),
-        VESTES(4),
-        BAS(5),
-        TOPS(6),
-        ACCESSOIRE(7);
-
-        private final int value;
-
-        category(int value){
-            this.value = value;
-        }
-
-        public int getValue(){
-            return value;
-        }
-
-        public Item.category categoryOfValue(int value){
-            for (Item.category e : values() ){
-                if (e.value == value){
-                    return e;
-                }
-            }
-            return null;
-        }
-    }
-
     public Item() {
     }
 
-    public Item(String name, int estimatedPrice, boolean isInCatalog, boolean isInGallery, String image, FashionCollection fashionCollection, int categoryValue) {
+
+    public Item(String name, int estimatedPrice, boolean isInCatalog, boolean isInGallery, String image, FashionCollection fashionCollection, Collection<Cart> carts, Category category, Genre genre) {
         this.name = name;
         this.estimatedPrice = estimatedPrice;
         this.isInCatalog = isInCatalog;
         this.isInGallery = isInGallery;
         this.image = image;
         this.fashionCollection = fashionCollection;
-        category = Item.category.categoryOfValue(categoryValue);
+        this.carts = carts;
+        this.category = category;
+        this.genre = genre;
     }
 
 
@@ -120,13 +109,28 @@ public class Item {
         this.fashionCollection = fashionCollection;
     }
 
-    public static int getCategory() {
-        return category.value;
+    public Collection<Cart> getCarts() {
+        return carts;
     }
 
-    public static void setCategory(int categoryValue) {
-        Item.category = Item.category.categoryOfValue(categoryValue);
+    public void setCarts(Collection<Cart> carts) {
+        this.carts = carts;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
 
 }

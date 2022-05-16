@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 public class FaqController {
     @Autowired
@@ -18,19 +19,19 @@ public class FaqController {
 
     // creating a get mapping that retrieves the detail of a specific faq
     @GetMapping("/faqs/{id}")
-    private Faq getBooks(@PathVariable("id") long faqId) {
+    private Faq getFaqs(@PathVariable("id") long faqId) {
         return faqService.getFaqById(faqId);
     }
 
     // creating a deleted mapping that deletes a specified faq
     @DeleteMapping("/faqs/{id}")
-    private void deleteBook(@PathVariable("id") long faqId) {
+    private void deleteFaq(@PathVariable("id") long faqId) {
         faqService.deleteFaq(faqId);
     }
 
     // creating post mapping that post the faq detail in the database
     @PostMapping("/faqs")
-    private long saveBook(@RequestBody Faq faq) {
+    private long saveFaq(@RequestBody Faq faq) {
         faqService.saveFaq(faq);
         return faq.getId();
     }
