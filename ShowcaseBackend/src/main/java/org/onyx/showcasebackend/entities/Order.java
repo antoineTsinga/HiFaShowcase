@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -28,7 +28,17 @@ public class Order {
     private Client client;
 
     @ManyToMany
-    private ArrayList<Item> Items;
+    private Collection<Item> items;
+
+    public Order() {
+
+    }
+
+    public Order( Date createdDate, Client client, Collection<Item> items) {
+        this.createdDate = createdDate;
+        this.client = client;
+        this.items = items;
+    }
 
     @PrePersist
     void preInsert() {
@@ -51,9 +61,6 @@ public class Order {
         this.id = id;
     }
 
-    public Order(ArrayList<Item> items) {
-        Items = items;
-    }
 
     public Optional<LocalDateTime> getCreatedDate() {
         return null == this.createdDate ? Optional.empty() : Optional.of(LocalDateTime.ofInstant(this.createdDate.toInstant(), ZoneId.systemDefault()));
@@ -65,11 +72,11 @@ public class Order {
     }
 
 
-    public ArrayList<Item> getItems() {
-        return Items;
+    public Collection<Item> getItems() {
+        return items;
     }
 
-    public void setItems(ArrayList<Item> items) {
-        Items = items;
+    public void setItems(Collection<Item> items) {
+        this.items = items;
     }
 }
