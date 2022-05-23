@@ -14,11 +14,9 @@ public class Client extends User{
     private Cart cart;
 
 
-
-    public Client(String firstName, String lastName, Long tel, String avatar, String email, Collection<Role> role, String password, Collection<Order> orders, Cart cart) {
-        super(firstName, lastName, tel, avatar, email, password,role);
+    public Client(String username, String email, String password, Collection<Order> orders) {
+        super(username, email, password);
         this.orders = orders;
-        this.cart = cart;
     }
 
     public Client() {
