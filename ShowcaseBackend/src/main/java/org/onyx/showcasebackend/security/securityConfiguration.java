@@ -4,14 +4,17 @@ package org.onyx.showcasebackend.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -42,6 +45,8 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        CustomFilter mupaf = new CustomFilter();
+        mupaf.setAuthenticationManager(authenticationManager());
         http
                 .authorizeRequests()
                 .antMatchers("/api-docs").permitAll()
@@ -50,17 +55,18 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admins").authenticated()
                 .and()
                 .httpBasic();
-        http.cors().and().csrf().disable();
+        http.cors().and().csrf().disable().addFilterAt(
+                        mupaf,
+                        UsernamePasswordAuthenticationFilter.class)
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/items").authenticated()
+                .antMatchers(HttpMethod.POST, "/login").permitAll();
     }
-    /*
-     *   @Bean
+      @Bean
         PasswordEncoder passwordEncoder(){
             return new BCryptPasswordEncoder();
-    }*/
-
-    @Bean
-    public PasswordEncoder getPasswordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
     }
+
+
 }
 
