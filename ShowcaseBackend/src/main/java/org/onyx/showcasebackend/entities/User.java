@@ -1,7 +1,6 @@
 package org.onyx.showcasebackend.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -27,23 +26,20 @@ public  class  User {
     private String password;
 
 
-    @ManyToMany
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))
-    private Collection<Role> roles ;
+    @OneToOne
+    private Role role ;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, Long tel, String avatar, String email, String password, Collection<Role> roles) {
+    public User(String firstName, String lastName, Long tel, String avatar, String email, String password, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.tel = tel;
         this.avatar = avatar;
         this.email = email;
         this.password = password;
-        this.roles = roles;
+        this.role = role;
     }
 
     public Long getId() {
@@ -110,12 +106,11 @@ public  class  User {
         this.password = password;
     }
 
-
-    public Collection<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

@@ -40,4 +40,11 @@ public  class UserService {
         userRepository.save(user);
     }
 
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 }

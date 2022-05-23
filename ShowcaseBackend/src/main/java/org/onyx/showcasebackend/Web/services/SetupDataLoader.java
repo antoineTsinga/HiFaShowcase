@@ -1,3 +1,4 @@
+/*
 package org.onyx.showcasebackend.Web.services;
 
 import org.onyx.showcasebackend.dao.PrivilegeRepository;
@@ -87,3 +88,4 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     }
 
 }
+*/
