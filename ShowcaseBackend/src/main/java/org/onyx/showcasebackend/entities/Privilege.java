@@ -1,5 +1,6 @@
 package org.onyx.showcasebackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -8,21 +9,38 @@ import java.util.Collection;
 @Entity
 public class Privilege {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String action;
 
-    @ManyToMany(mappedBy = "privileges")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Collection<Role> roles;
+    private String entity;
 
-    public Privilege(String name) {
-        this.name = name;
-    }
+    private Boolean constrained;
+
+
+    @ManyToOne
+    @JoinColumn(name="role_id")
+    @JsonIgnore
+    private Role role;
 
     public Privilege() {
 
+    }
+
+    public Privilege(String action, String entity, Boolean constrained, Role role) {
+        this.action = action;
+        this.entity = entity;
+        this.constrained = constrained;
+        this.role = role;
+    }
+
+    public Boolean isConstrained(){
+        return constrained;
+    }
+
+    public void setIsConstrained(Boolean isConstrained){
+        constrained = isConstrained;
     }
 
     public Long getId() {
@@ -33,19 +51,27 @@ public class Privilege {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getAction() {
+        return action;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAction(String action) {
+        this.action = action;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
+    public String getEntity() {
+        return entity;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
+    public void setEntity(String entity) {
+        this.entity = entity;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

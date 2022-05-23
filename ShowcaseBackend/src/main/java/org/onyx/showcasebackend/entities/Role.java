@@ -4,35 +4,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Collection<User> users;
+    private String longName;
 
-    @ManyToMany
-    @JoinTable(
-            name = "roles_privileges",
-            joinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "privilege_id", referencedColumnName = "id"))
-    private Collection<Privilege> privileges;
+    @OneToMany(mappedBy = "role")
+    private Set<Privilege> privileges = new HashSet<Privilege>();
 
     public Role() {
     }
 
-
-    public Role(String name) {
+    public Role(String name, String longName, Set<Privilege> privileges) {
         this.name = name;
+        this.longName = longName;
+        this.privileges = privileges;
     }
 
     public Long getId() {
@@ -51,19 +46,19 @@ public class Role {
         this.name = name;
     }
 
-    public Collection<User> getUsers() {
-        return users;
+    public String getLongName() {
+        return longName;
     }
 
-    public void setUsers(Collection<User> users) {
-        this.users = users;
+    public void setLongName(String longName) {
+        this.longName = longName;
     }
 
-    public Collection<Privilege> getPrivileges() {
+    public Set<Privilege> getPrivileges() {
         return privileges;
     }
 
-    public void setPrivileges(Collection<Privilege> privileges) {
+    public void setPrivileges(Set<Privilege> privileges) {
         this.privileges = privileges;
     }
 }
