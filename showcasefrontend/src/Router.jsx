@@ -14,7 +14,6 @@ import TestLogin from "./views/TestLogin";
 export default function Router() {
   const { onConnect } = useAppContext();
 
-  console.log(onConnect);
   return (
     <BrowserRouter>
       <Navbar />

@@ -32,7 +32,9 @@ export function AppContextProvider({ children }) {
         setUsername(response.data.username);
         setUserData(response.data);
         setOnConnect(true);
-        const { data: user1 } = await backend.get(`users/${response.data.id}`);
+        const { data: user1 } = await backend.get(
+          `clients/${response.data.id}`
+        );
         setUser(user1);
       } else {
         setOnConnect(false);

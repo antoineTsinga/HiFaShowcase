@@ -15,12 +15,15 @@ import java.util.stream.Collectors;
 public class MyUserDetails implements UserDetails {
 
     private String userName;
+
+    private Long id;
     private String password;
     private Boolean active;
     private List<GrantedAuthority> authorities;
 
 
     public  MyUserDetails(User user){
+        this.id = user.getId();
         this.userName = user.getUsername();
         this.password = user.getPassword();
         this.active = true;
@@ -67,4 +70,10 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+    public Long getId() {
+        return id;
+    }
+
 }
