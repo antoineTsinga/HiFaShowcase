@@ -1,16 +1,16 @@
 
 package org.onyx.showcasebackend.security;
 
-import jdk.jfr.Enabled;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -21,13 +21,11 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class securityConfiguration extends WebSecurityConfigurerAdapter {
+    @Autowired
+    UserDetailsService userDetailsService;
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN")
-                .and()
-                .withUser("user1").password(passwordEncoder().encode("user1")).roles("USER");
+        auth.userDetailsService(userDetailsService);
     }
 
     @Bean
@@ -46,7 +44,7 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/users").permitAll()
+                .antMatchers("/api-docs").permitAll()
                 .antMatchers("/orders").permitAll()
                 .antMatchers("/items").authenticated()
                 .antMatchers("/admins").authenticated()
@@ -54,9 +52,15 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic();
         http.cors().and().csrf().disable();
     }
+    /*
+     *   @Bean
+        PasswordEncoder passwordEncoder(){
+            return new BCryptPasswordEncoder();
+    }*/
+
     @Bean
-    PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder getPasswordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
     }
 }
 
