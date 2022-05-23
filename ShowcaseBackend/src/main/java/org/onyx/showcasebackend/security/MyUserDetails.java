@@ -13,16 +13,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
-
-    private String userName;
-    private String password;
+    @Autowired
+    private User user;
     private Boolean active;
     private List<GrantedAuthority> authorities;
 
 
     public  MyUserDetails(User user){
-        this.userName = user.getUsername();
-        this.password = user.getPassword();
+        this.user = user;
         this.active = true;
         this.authorities = Arrays.stream(user.getRole().getName().split(","))
                 .map(SimpleGrantedAuthority::new)
@@ -40,12 +38,12 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return userName;
+        return user.getEmail();
     }
 
     @Override
@@ -67,4 +65,14 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+    public Long getId() {
+        return user.getId();
+    }
+
+    public Role getRole(){
+        return user.getRole();
+    }
+
 }

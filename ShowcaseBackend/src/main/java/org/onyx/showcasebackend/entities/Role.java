@@ -13,7 +13,6 @@ import java.util.Set;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonValue
     private Long id;
 
     private String name;
