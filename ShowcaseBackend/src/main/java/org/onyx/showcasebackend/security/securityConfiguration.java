@@ -34,7 +34,7 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
      CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
@@ -60,7 +60,7 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
                         UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/items").authenticated()
-                .antMatchers(HttpMethod.POST, "/login").permitAll();
+                .antMatchers(HttpMethod.POST, "/api/login").permitAll();
     }
       @Bean
         PasswordEncoder passwordEncoder(){
