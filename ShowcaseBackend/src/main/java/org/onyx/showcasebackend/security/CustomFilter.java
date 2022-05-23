@@ -16,7 +16,7 @@ import java.util.Map;
 public class CustomFilter extends AbstractAuthenticationProcessingFilter {
 
     protected CustomFilter() {
-        super(new AntPathRequestMatcher("/login", "POST"));
+        super(new AntPathRequestMatcher("/api/login", "POST"));
     }
 
     @Override
