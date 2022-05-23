@@ -1,4 +1,4 @@
-/*
+
 package org.onyx.showcasebackend.Web.services;
 
 
@@ -18,10 +18,10 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
-*/
+
 /**
  * Service de vérification des privileges utilisateurs.
- *//*
+ */
 
 @Service
 public class AuthorizationSE {
@@ -33,13 +33,13 @@ public class AuthorizationSE {
     private PrivilegeRepository privilegeRepo;
 
 
-    */
+
 /**
      * Vérifie l'autorisation pour les privileges qui ne sont pas sensé contenir de contraintes sur l'objet visé
      * @param action le type d'action demandée
      * @param entity l'objet visé
      * @return
-     *//*
+     */
 
     public boolean can(String action, String entity) {
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -52,22 +52,15 @@ public class AuthorizationSE {
 
     }
 
-    */
-/**
+
+    /**
      * Vérifie l'autorisations pour les privileges qui comportent des contraintes sur l'objet visé
      * @param action le type d'action demandée
      * @param entity l'objet visé
      * @param entityId l'id de l'objet visé
      * @return Vrai ou Faux
-     *//*
+     */
 
-
-    */
-/*
-        public  boolean can(){
-        return true;
-    }
-    *//*
 
     public boolean can(String action, String entity, Long entityId) {
 
@@ -83,7 +76,7 @@ public class AuthorizationSE {
         //implémentation des logiques métier de vérification des contraintes
         switch (entity){
             //Vérification si l'utilisateur est affecté au contrat via la table d'affectation UserContract
-            */
+
 /*case "Cart":
                 Optional<User> user = userRepo.findById(currentUser.getId());
                 //Récuperation des contrats sur lesquel est affecté l'utilisateur
@@ -95,7 +88,7 @@ public class AuthorizationSE {
                     }
                 }
                 break;
-      *//*
+      */
       //Vérification si l'utilisateur visé par la requete est le même que l'utilisateur actuellement authentifié
             case "User":
                 if (currentUser.getId() == entityId) {
@@ -111,20 +104,5 @@ public class AuthorizationSE {
 
     }
 
-    public UserRepository getUserRepo() {
-        return userRepo;
-    }
-
-    public void setUserRepo(UserRepository userRepo) {
-        this.userRepo = userRepo;
-    }
-
-    public PrivilegeRepository getPrivilegeRepo() {
-        return privilegeRepo;
-    }
-
-    public void setPrivilegeRepo(PrivilegeRepository privilegeRepo) {
-        this.privilegeRepo = privilegeRepo;
-    }
 }
-*/
+

@@ -41,6 +41,10 @@ public  class UserController {
          return user;
 
     }
+
+    /**
+     * Met à jour un utilisateur en fonction des permissions
+     */
   //  @PreAuthorize("@authorizationSE.can('update', 'User') or @authorizationSE.can('update', 'User', #id)")
     @PutMapping(value = "/users/{id}")
     public User updateUser(@RequestBody User user, @PathVariable("id") Long id)
@@ -49,9 +53,7 @@ public  class UserController {
         return user;
     }
 
-    /**
-     * Met à jour un utilisateur en fonction des permissions
-     */
+
 
 
 }
