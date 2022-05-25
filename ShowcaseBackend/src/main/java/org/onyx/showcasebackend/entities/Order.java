@@ -3,13 +3,11 @@ package org.onyx.showcasebackend.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Optional;
 
 @Entity
 @Table(name = "orders")
@@ -18,8 +16,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+    @CreationTimestamp
+    @Column(name="created_at", nullable = false, updatable = false)
+    private Date createdAt;
 
     @ManyToOne
     @JoinColumn()
@@ -34,17 +33,12 @@ public class Order {
 
     }
 
-    public Order(Date createdDate, Client client, Collection<Item> items) {
-        this.createdDate = createdDate;
+    public Order(Client client, Collection<Item> items) {
         this.client = client;
         this.items = items;
     }
 
-    @PrePersist
-    void preInsert() {
-        if (this.createdDate == null)
-            this.createdDate = java.util.Date.from((LocalDateTime.now()).atZone(ZoneId.systemDefault()).toInstant());
-    }
+
 
     public Client getClient() {
         return client;
@@ -58,15 +52,7 @@ public class Order {
         this.id = id;
     }
 
-    public Optional<LocalDateTime> getCreatedDate() {
-        return null == this.createdDate ? Optional.empty()
-                : Optional.of(LocalDateTime.ofInstant(this.createdDate.toInstant(), ZoneId.systemDefault()));
-    }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-
-        this.createdDate = java.util.Date.from(createdDate.atZone(ZoneId.systemDefault()).toInstant());
-    }
 
     public Collection<Item> getItems() {
         return items;
@@ -74,5 +60,17 @@ public class Order {
 
     public void setItems(Collection<Item> items) {
         this.items = items;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

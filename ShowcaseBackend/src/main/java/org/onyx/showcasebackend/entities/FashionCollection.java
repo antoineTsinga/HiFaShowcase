@@ -1,6 +1,12 @@
 package org.onyx.showcasebackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -11,7 +17,14 @@ public class FashionCollection {
     private Long id;
 
     private String name;
-    private Date creationDate;
+
+    @OneToMany(mappedBy = "fashionCollection")
+    private Collection<Item> items;
+
+
+    @CreationTimestamp
+    @Column(name="created_at", nullable = false, updatable = false)
+    private Date creationAt;
 
     public Long getId() {
         return id;
@@ -24,10 +37,11 @@ public class FashionCollection {
     public FashionCollection() {
     }
 
-    public FashionCollection(String name, Date creationDate) {
+    public FashionCollection(String name, Date creationAt) {
         this.name = name;
-        this.creationDate = creationDate;
+        this.creationAt = creationAt;
     }
+
 
 
     public String getName() {
@@ -38,11 +52,11 @@ public class FashionCollection {
         this.name = name;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public Date getCreationAt() {
+        return creationAt;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setCreationAt(Date creationAt) {
+        this.creationAt = creationAt;
     }
 }

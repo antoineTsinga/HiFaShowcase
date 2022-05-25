@@ -16,12 +16,10 @@ public class Cart {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToMany()
+    @ManyToMany
     private Collection<Item> items;
 
     @OneToOne
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JsonIdentityReference(alwaysAsId=true)
     private Client client;
 
     public Long getId() {

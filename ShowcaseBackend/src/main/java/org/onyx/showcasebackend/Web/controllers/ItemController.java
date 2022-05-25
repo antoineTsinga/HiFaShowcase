@@ -2,10 +2,16 @@ package org.onyx.showcasebackend.Web.controllers;
 
 
 import org.onyx.showcasebackend.Web.services.ItemService;
+import org.onyx.showcasebackend.entities.Category;
+import org.onyx.showcasebackend.entities.FashionCollection;
+import org.onyx.showcasebackend.entities.Genre;
 import org.onyx.showcasebackend.entities.Item;
+import org.onyx.showcasebackend.payload.request.ItemRequest;
+import org.onyx.showcasebackend.payload.request.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -30,18 +36,29 @@ public class ItemController {
     }
 
     @PostMapping(value = "/items")
-    private Item saveItem(@RequestBody Item item)
+    private Long saveItem(@RequestBody ItemRequest itemRequest)
     {
+        Item item = ItemRequestToItem(itemRequest);
         itemService.save(item);
-        return item;
+
+        return item.getId();
 
     }
 
     @PutMapping(value = "/items/{id}")
-    private Item updateItem(@RequestBody Item item, @PathVariable("id") Long id)
+    private Long updateItem(@RequestBody ItemRequest itemRequest, @PathVariable("id") Long id)
     {
+        Item item = ItemRequestToItem(itemRequest);
         itemService.update(item, id);
-        return item;
+        return item.getId();
+    }
+
+    private Item ItemRequestToItem(@RequestBody ItemRequest itemRequest){
+        FashionCollection fashionCollection = new FashionCollection();
+        fashionCollection.setId(itemRequest.getFashionCollection());
+        Category category = Arrays.stream(Category.values()).filter(category1 -> category1.getCode()==itemRequest.getCategory()).findFirst().get();
+        Genre genre = Arrays.stream(Genre.values()).filter(genre1 -> genre1.getCode()==itemRequest.getGenre()).findFirst().get();
+        return new Item(itemRequest.getName(),itemRequest.getEstimatedPrice(),itemRequest.getInCatalog(),itemRequest.getInGallery(), itemRequest.getImage(), fashionCollection,null,category,genre);
     }
 
 
