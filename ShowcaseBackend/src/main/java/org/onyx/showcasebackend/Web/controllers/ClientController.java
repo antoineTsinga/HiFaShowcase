@@ -92,6 +92,13 @@ public class ClientController {
 
     @GetMapping("/api/users/current")
     public ResponseEntity<?> currentClient(){
+
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
+            return ResponseEntity.status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(null);
+        }
+
         MyUserDetails currentUser = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(currentUser.getUsername()==null){
             return ResponseEntity.status(HttpStatus.OK)
@@ -114,19 +121,28 @@ public class ClientController {
 
     @RequestMapping(value = {"/api/logout"}, method = RequestMethod.POST)
     public ResponseEntity<?> logoutDo(HttpServletRequest request ){
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
+            return ResponseEntity.status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(null);
+        }
+
+        SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
+
         request.getSession(false);
         HttpSession session;
         SecurityContextHolder.clearContext();
         session= request.getSession(false);
-        if(session != null) {
+
             session.invalidate();
-        }
+
 
         if(request.getCookies() !=null) {
             for (Cookie cookie : request.getCookies()) {
                 if (cookie.getName().equals("JSESSIONID")) {
                     cookie.setMaxAge(0);
                 }
+                cookie.setMaxAge(0);
 
             }
         }

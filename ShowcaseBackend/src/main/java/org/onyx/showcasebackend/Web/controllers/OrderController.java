@@ -1,10 +1,15 @@
 package org.onyx.showcasebackend.Web.controllers;
 
+import org.hibernate.mapping.Collection;
 import org.onyx.showcasebackend.Web.services.OrderService;
+import org.onyx.showcasebackend.entities.Client;
+import org.onyx.showcasebackend.entities.Item;
 import org.onyx.showcasebackend.entities.Order;
+import org.onyx.showcasebackend.payload.request.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,18 +34,34 @@ public class OrderController {
     }
 
     @PostMapping(value = "/orders")
-    private Order saveOrder(@RequestBody Order order)
+    private Long saveOrder(@RequestBody OrderRequest orderRequest)
     {
+        Order order = OrderRequestToOrder(orderRequest);
         orderService.save(order);
-        return order;
+
+        return order.getId();
 
     }
 
     @PutMapping(value = "/orders/{id}")
-    private Order updateOrder(@RequestBody Order order, @PathVariable("id") Long id)
+    private Long updateOrder(@RequestBody OrderRequest orderRequest, @PathVariable("id") Long id)
     {
+        Order order = OrderRequestToOrder(orderRequest);
         orderService.update(order, id);
-        return order;
+        return order.getId();
+    }
+
+    private Order OrderRequestToOrder(@RequestBody OrderRequest orderRequest) {
+        Client client = new Client();
+        client.setId(orderRequest.getClient_id());
+        List<Item> items = new ArrayList<>();
+
+        for (long item_id: orderRequest.getItems()) {
+            Item item = new Item();
+            item.setId(item_id);
+            items.add(item);
+        }
+         return new Order(client, items);
     }
 
 }

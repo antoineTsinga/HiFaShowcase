@@ -22,12 +22,14 @@ public class Item {
     private boolean isInCatalog ;
     private boolean isInGallery;
     private String image;
-    @ManyToOne()
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JsonIdentityReference(alwaysAsId=true)
+
+
+
+    @ManyToOne
+    @JoinColumn()
     private FashionCollection fashionCollection;
     @JsonIgnore
-    @ManyToMany(mappedBy = "")
+    @ManyToMany
     private Collection<Cart> carts;
 
     private Category category;

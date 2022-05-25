@@ -1,5 +1,7 @@
 package org.onyx.showcasebackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -27,6 +29,7 @@ public  class  User {
 
 
     @OneToOne
+    @JsonIgnore
     private Role role ;
 
     public User() {
