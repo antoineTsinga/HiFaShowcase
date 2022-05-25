@@ -96,8 +96,10 @@ export default function LoginView({ handleLogin }) {
         </Link>
 
         <p>
-          Vous n'avez pas encore de compte ?{" "}
-          <Link to="/registration">Inscrivez-vous</Link>
+          <Typography style={{ fontFamily: "$font" }}>
+            Vous n'avez pas encore de compte ?{" "}
+            <Link to="/registration">Inscrivez-vous</Link>
+          </Typography>
         </p>
       </div>
     </div>
