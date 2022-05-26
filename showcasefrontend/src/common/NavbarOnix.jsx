@@ -60,6 +60,7 @@ export default function NavbarOnix() {
                 {["Nouveautes", "Femme", "Homme", "Enfant", "Accessoires"].map(
                   (title) => (
                     <Nav.Link
+                      key={title}
                       href={`/Catalogue?${title}=true`}
                       {...style.title}
                       className="p-4"
@@ -71,7 +72,11 @@ export default function NavbarOnix() {
                 <Nav.Link {...style.title} className="p-4">
                   <BsCart2 />
                 </Nav.Link>
-                <Nav.Link {...style.title} className="p-4">
+                <Nav.Link
+                  {...style.title}
+                  href={onConnect ? "/logout" : "/login"}
+                  className="p-4"
+                >
                   {onConnect ? <FiLogOut onClick={logout} /> : "Connexion"}
                 </Nav.Link>
                 <Nav.Link>
