@@ -6,4 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(collectionResourceRel = "items", path = "items")
 public interface ItemRepository extends JpaRepository<Item,Long> {
+    Item findItemByName(String name);
 }

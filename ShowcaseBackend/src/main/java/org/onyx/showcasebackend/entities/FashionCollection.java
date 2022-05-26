@@ -37,9 +37,8 @@ public class FashionCollection {
     public FashionCollection() {
     }
 
-    public FashionCollection(String name, Date creationAt) {
+    public FashionCollection(String name) {
         this.name = name;
-        this.creationAt = creationAt;
     }
 
 

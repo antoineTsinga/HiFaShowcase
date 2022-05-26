@@ -1,0 +1,132 @@
+[
+  {
+    "name": "Penelope",
+    "estimatedPrice": 135,
+    "image": "Macey",
+    "category": 1,
+    "genre": 0,
+    "inGallery": false,
+    "inCatalog": true
+
+  },
+  {
+    "name": "Lila",
+    "estimatedPrice": 69,
+    "image": "Aladdin",
+    "category": 0,
+    "genre": 0,
+    "inGallery": true,
+    "inCatalog": true
+
+  },
+  {
+    "name": "Iona",
+    "estimatedPrice": 111,
+    "image": "Inez",
+    "category": 0,
+    "genre": 2,
+    "inGallery": true,
+    "inCatalog": false
+
+  },
+  {
+    "name": "Barrett",
+    "estimatedPrice": 88,
+    "image": "Jameson",
+    "category": 5,
+    "genre": 0,
+    "inGallery": true,
+    "inCatalog": true
+
+  },
+  {
+    "name": "Samantha",
+    "estimatedPrice": 71,
+    "image": "Leandra",
+    "category": 2,
+    "genre": 0,
+    "inGallery": false,
+    "inCatalog": false
+
+  },
+  {
+    "name": "Tanner",
+    "estimatedPrice": 30,
+    "image": "Jane",
+    "category": 4,
+    "genre": 1,
+    "inGallery": false,
+    "inCatalog": true
+
+  },
+  {
+    "name": "Rina",
+    "estimatedPrice": 90,
+    "image": "Henry",
+    "category": 3,
+    "genre": 1,
+    "inGallery": true,
+    "inCatalog": false
+
+  },
+  {
+    "name": "Cheyenne",
+    "estimatedPrice": 87,
+    "image": "Maryam",
+    "category": 3,
+    "genre": 2,
+    "inGallery": true,
+    "inCatalog": true
+
+  },
+  {
+    "name": "Uma",
+    "estimatedPrice": 58,
+    "image": "https://twitter.com",
+    "category": 6,
+    "genre": 0,
+    "inGallery": true,
+    "inCatalog": false
+
+  },
+  {
+    "name": "Lillian",
+    "estimatedPrice": 44,
+    "image": "http://whatsapp.com",
+    "category": 1,
+    "genre": 2,
+    "inGallery": true,
+    "inCatalog": true
+
+  },
+  {
+    "name": "Dolan",
+    "estimatedPrice": 49,
+    "image": "http://guardian.co.uk",
+    "category": 3,
+    "genre": 2,
+    "inGallery": true,
+    "inCatalog": true
+
+  },
+  {
+    "name": "Janna",
+    "estimatedPrice": 60,
+    "image": "https://zoom.us",
+    "category": 2,
+    "genre": 1,
+    "inGallery": false,
+    "inCatalog": false
+
+  },
+  {
+    "name": "Upton",
+    "estimatedPrice": 42,
+    "image": "http://walmart.com",
+    "category": 4,
+    "genre": 1,
+    "inGallery": true,
+    "inCatalog": false
+
+  }
+]

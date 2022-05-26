@@ -3,7 +3,9 @@ package org.onyx.showcasebackend.Web.controllers;
 import org.onyx.showcasebackend.Web.services.ClientService;
 import org.onyx.showcasebackend.dao.ClientRepository;
 import org.onyx.showcasebackend.dao.RoleRepository;
+import org.onyx.showcasebackend.entities.Cart;
 import org.onyx.showcasebackend.entities.Client;
+import org.onyx.showcasebackend.entities.Item;
 import org.onyx.showcasebackend.entities.Role;
 
 import org.onyx.showcasebackend.security.MyUserDetails;
@@ -20,6 +22,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -83,6 +86,11 @@ public class ClientController {
         client.setRole(role);
         client.setPassword(passwordEncoder.encode(client.getPassword()));
 
+        // set Cart
+
+        List<Item> items = new ArrayList<>();
+        Cart cart = new Cart(items, client);
+        client.setCart(cart);
         clientService.save(client);
 
         return ResponseEntity.status(HttpStatus.CREATED)

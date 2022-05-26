@@ -17,7 +17,7 @@ public class Role {
 
     private String name;
 
-    private String longName;
+
 
     @OneToMany(mappedBy = "role")
     private Set<Privilege> privileges = new HashSet<Privilege>();
@@ -25,9 +25,9 @@ public class Role {
     public Role() {
     }
 
-    public Role(String name, String longName, Set<Privilege> privileges) {
+    public Role(String name,  Set<Privilege> privileges) {
         this.name = name;
-        this.longName = longName;
+
         this.privileges = privileges;
     }
 
@@ -47,13 +47,6 @@ public class Role {
         this.name = name;
     }
 
-    public String getLongName() {
-        return longName;
-    }
-
-    public void setLongName(String longName) {
-        this.longName = longName;
-    }
 
     public Set<Privilege> getPrivileges() {
         return privileges;

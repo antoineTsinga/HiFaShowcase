@@ -1,5 +1,6 @@
 package org.onyx.showcasebackend.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -8,7 +9,7 @@ import java.util.Collection;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Admin extends User{
-
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     public Admin() {

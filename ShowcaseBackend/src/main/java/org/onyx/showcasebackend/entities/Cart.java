@@ -2,6 +2,7 @@ package org.onyx.showcasebackend.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
@@ -19,7 +20,9 @@ public class Cart {
     @ManyToMany
     private Collection<Item> items;
 
-    @OneToOne
+    @OneToOne(mappedBy = "cart")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Client client;
 
     public Long getId() {

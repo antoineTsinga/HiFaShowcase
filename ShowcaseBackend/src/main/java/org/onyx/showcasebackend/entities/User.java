@@ -21,7 +21,7 @@ public  class  User {
     private Long tel;
     private String avatar;
 
-
+    @Column(unique=true)
     private String email;
 
 
