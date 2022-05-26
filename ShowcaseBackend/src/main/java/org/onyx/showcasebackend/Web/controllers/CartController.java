@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class CartController {
@@ -60,6 +61,13 @@ public class CartController {
             items.add(item);
         }
         return new Cart(items, client);
+    }
+
+    private CartRequest CartToCartRequest(@RequestBody Cart cart){
+
+        List<Long> items = cart.getArticles().stream().map(item -> item.getId()).collect(Collectors.toList());
+
+        return new CartRequest(cart.getId(),cart.getClient().getId(), items);
     }
 
 }
