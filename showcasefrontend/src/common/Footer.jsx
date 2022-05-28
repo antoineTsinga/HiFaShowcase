@@ -25,6 +25,13 @@ export default function Footer() {
       },
     },
   };
+
+  const styleLink = {
+    style: {
+      textDecoration: "none",
+      color: "var(--color-white)",
+    },
+  };
   return (
     <>
       <div className="footer" {...style.footer}>
@@ -50,41 +57,61 @@ export default function Footer() {
                   <MDBCol md="3" className="flex-column">
                     <p>SERVICES</p>
                     <p>
-                      <Link to="">livraison</Link>
+                      <Link {...styleLink} to="">
+                        livraison
+                      </Link>
                     </p>
                     <p>
-                      <Link to="">Blog</Link>
+                      <Link {...styleLink} to="">
+                        Blog
+                      </Link>
                     </p>
                     <p>
-                      <Link to="">Incription à la Newsletter</Link>
+                      <Link {...styleLink} to="">
+                        Incription à la Newsletter
+                      </Link>
                     </p>
                   </MDBCol>
                   <MDBCol md="3">
                     <p>BESOINS D'AIDE ?</p>
                     <p>
-                      <Link to="">FAQ</Link>
+                      <Link {...styleLink} to="">
+                        FAQ
+                      </Link>
                     </p>
                     <p>
-                      <Link to="">Plan du site</Link>
+                      <Link {...styleLink} to="">
+                        Plan du site
+                      </Link>
                     </p>
                     <p>
-                      <Link to="">Conctacter l'atelier</Link>
+                      <Link {...styleLink} to="">
+                        Conctacter l'atelier
+                      </Link>
                     </p>
                     <p>
-                      <Link to="">Désinscription à la Newsletter</Link>
+                      <Link {...styleLink} to="">
+                        Désinscription à la Newsletter
+                      </Link>
                     </p>
                   </MDBCol>
 
                   <MDBCol md="3">
                     <p>INFORMATION SUR LA SOCIETE</p>
                     <p>
-                      <Link to="">A propos de nous</Link>
+                      <Link {...styleLink} to="">
+                        A propos de nous
+                      </Link>
                     </p>
                     <p>
-                      <Link to="">Politique de confidentialité</Link>
+                      <Link {...styleLink} to="">
+                        Politique de confidentialité
+                      </Link>
                     </p>
                     <p>
-                      <Link to="">Carrière</Link>
+                      <Link {...styleLink} to="">
+                        Carrière
+                      </Link>
                     </p>
                   </MDBCol>
                 </MDBRow>

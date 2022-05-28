@@ -20,6 +20,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.logout.DelegatingServerLogoutHandler;
 import org.springframework.security.web.server.authentication.logout.SecurityContextServerLogoutHandler;
 import org.springframework.security.web.server.authentication.logout.WebSessionServerLogoutHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -59,24 +60,22 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
         mupaf.setAuthenticationManager(authenticationManager());
         http
                 .authorizeRequests()
-                .antMatchers("/api-docs").permitAll()
-                .antMatchers("/orders").permitAll()
-                .antMatchers("/items").authenticated()
-                .antMatchers("/admins").authenticated()
+                .antMatchers("/api-docs").hasAnyRole("ADMIN")
+                .antMatchers("/api/admins").hasRole("ADMIN")
+                .antMatchers("/api/users").hasRole("ADMIN")
                 .and()
                 .httpBasic();
         http.cors().and().csrf().disable().addFilterAt(
                         mupaf,
                         UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/items").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/logout2").permitAll().and().logout(logout -> logout
-                        .logoutUrl("/logout2")
-                        .logoutSuccessUrl("http://localhost:3000/")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                );
+                .antMatchers(HttpMethod.POST, "/api/register").permitAll()
+                .antMatchers(HttpMethod.GET, "api/clients/current").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("admin/logout")).logoutSuccessUrl("/login");
 
     }
       @Bean

@@ -16,7 +16,7 @@ export default function NavbarOnix() {
   };
 
   function logout() {
-    axios.get(`${BACKEND_URL}/logout2`);
+    backend.get(`${BACKEND_URL}/logout`);
   }
 
   return (

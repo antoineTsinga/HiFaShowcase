@@ -2,10 +2,10 @@ import axios from "axios";
 
 import { BACKEND_URL } from "./apiCalls";
 
-function checkUser() {
-  return axios({
+async function checkUser() {
+  return await axios({
     method: "get",
-    url: `${BACKEND_URL}/api/users/current`,
+    url: `${BACKEND_URL}/api/clients/current`,
     headers: {
       "Content-Type": "application/json",
     },

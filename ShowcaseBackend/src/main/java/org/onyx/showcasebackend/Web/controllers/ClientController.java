@@ -1,5 +1,6 @@
 package org.onyx.showcasebackend.Web.controllers;
 
+import org.onyx.showcasebackend.Web.services.CartService;
 import org.onyx.showcasebackend.Web.services.ClientService;
 import org.onyx.showcasebackend.dao.ClientRepository;
 import org.onyx.showcasebackend.dao.RoleRepository;
@@ -30,6 +31,9 @@ import java.util.List;
 public class ClientController {
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private CartService cartService;
 
     @Autowired
     private ClientRepository userRepository;
@@ -89,16 +93,20 @@ public class ClientController {
         // set Cart
 
         List<Item> items = new ArrayList<>();
-        Cart cart = new Cart(items, client);
+        Cart cart = new Cart();
+        cart.setArticles(items);
         client.setCart(cart);
+
+        cartService.saveCart(cart);
         clientService.save(client);
+
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body("User registered successfully!");
     }
 
-    @GetMapping("/api/users/current")
+    @GetMapping("/api/clients/current")
     public ResponseEntity<?> currentClient(){
 
         if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
