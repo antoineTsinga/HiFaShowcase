@@ -26,7 +26,7 @@ export default function Home() {
       color: "var(--color-white)",
       fontWeight: "bold",
       fontSize: "1.3em",
-      top: "700px",
+      top: "70%",
       right: "25%",
       width: "50%",
       height: "50px",
@@ -46,6 +46,42 @@ export default function Home() {
           backgroundColor: "var(--color-grey)",
         }}
       >
+        {/* <div className="row">
+          <div className="col-sm">
+            <div className="position-relative ">
+              <Box
+                component="img"
+                style={{ width: "100%" }}
+                src={BannerFemme}
+              />
+              <Button
+                className="position-absolute"
+                variant="outlined"
+                sx={{ ...style.btn }}
+              >
+                Toute la Collection
+              </Button>
+            </div>
+          </div>
+          <div className="col-sm">
+            <div className="position-relative ">
+              <Box
+                className=""
+                style={{ width: "100%" }}
+                component="img"
+                src={BannerHomme}
+              ></Box>
+              <Button
+                className="position-absolute"
+                variant="outlined"
+                sx={{ ...style.btn }}
+              >
+                Toute la Collection
+              </Button>
+            </div>
+          </div>
+        </div> */}
+
         <SpacingGrid
           spacing={0}
           nbrchild={[

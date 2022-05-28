@@ -37,3 +37,9 @@ export function useClients() {
   );
   return handlers;
 }
+
+export function useCart() {
+  const handlers = useCollection("cart", (o1, o2) => 1);
+
+  return handlers;
+}

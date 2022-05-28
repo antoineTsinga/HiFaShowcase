@@ -9,6 +9,8 @@ import Registration from "./views/Auth/Registration";
 import Home from "./views/Home/Home";
 import TestLogin from "./views/TestLogin";
 import Account from "./views/Account/Account";
+import PrivateRoute from "./PrivateRoute";
+import Catalogue from "./views/Catalogue/Catalogue";
 
 export default function Router() {
   const { onConnect } = useAppContext();
@@ -25,9 +27,18 @@ export default function Router() {
           path="/login"
           exact
         />
+        <Route
+          element={
+            <PrivateRoute>
+              <Catalogue />
+            </PrivateRoute>
+          }
+          path="/Catalogue"
+          exact
+        />
 
-        <Route element={<TestLogin />} path="/test" exact />
-        <Route element={<Account />} path="/Account" exact />
+        {/* <Route element={<TestLogin />} path="/test" exact /> */}
+        <Route element={<Account />} path="/Account?{idClient}" exact />
       </Routes>
       <Footer />
     </BrowserRouter>

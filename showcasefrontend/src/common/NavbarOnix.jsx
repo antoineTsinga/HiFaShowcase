@@ -72,7 +72,7 @@ export default function NavbarOnix() {
                 </Nav.Link>
                 <Nav.Link
                   {...style.title}
-                  href={onConnect ? "/logout" : "/login"}
+                  href={onConnect ? "/login" : "/login"}
                   className="p-4"
                 >
                   {onConnect ? <FiLogOut onClick={logout} /> : "Connexion"}

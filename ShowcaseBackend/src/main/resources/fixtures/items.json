@@ -2,7 +2,7 @@
   {
     "name": "Penelope",
     "estimatedPrice": 135,
-    "image": "Macey",
+    "image": "showcasefrontend\\src\\assets\\images\\image-items\\1.png",
     "category": 1,
     "genre": 0,
     "inGallery": false,
@@ -12,7 +12,7 @@
   {
     "name": "Lila",
     "estimatedPrice": 69,
-    "image": "Aladdin",
+    "image": "showcasefrontend\\src\\assets\\images\\image-items\\2.png",
     "category": 0,
     "genre": 0,
     "inGallery": true,
@@ -22,7 +22,7 @@
   {
     "name": "Iona",
     "estimatedPrice": 111,
-    "image": "Inez",
+    "image": "showcasefrontend\\src\\assets\\images\\image-items\\3.png",
     "category": 0,
     "genre": 2,
     "inGallery": true,
@@ -32,7 +32,7 @@
   {
     "name": "Barrett",
     "estimatedPrice": 88,
-    "image": "Jameson",
+    "image": "showcasefrontend\\src\\assets\\images\\image-items\\4.png",
     "category": 5,
     "genre": 0,
     "inGallery": true,
@@ -42,7 +42,7 @@
   {
     "name": "Samantha",
     "estimatedPrice": 71,
-    "image": "Leandra",
+    "image": "showcasefrontend\\src\\assets\\images\\image-items\\5.png",
     "category": 2,
     "genre": 0,
     "inGallery": false,
@@ -52,7 +52,7 @@
   {
     "name": "Tanner",
     "estimatedPrice": 30,
-    "image": "Jane",
+    "image": "showcasefrontend\\src\\assets\\images\\image-items\\6.png",
     "category": 4,
     "genre": 1,
     "inGallery": false,
@@ -62,7 +62,7 @@
   {
     "name": "Rina",
     "estimatedPrice": 90,
-    "image": "Henry",
+    "image": "showcasefrontend\\src\\assets\\images\\image-items\\7.png",
     "category": 3,
     "genre": 1,
     "inGallery": true,
@@ -72,7 +72,7 @@
   {
     "name": "Cheyenne",
     "estimatedPrice": 87,
-    "image": "Maryam",
+    "image": "showcasefrontend\\src\\assets\\images\\image-items\\8.png",
     "category": 3,
     "genre": 2,
     "inGallery": true,
@@ -82,7 +82,7 @@
   {
     "name": "Uma",
     "estimatedPrice": 58,
-    "image": "https://twitter.com",
+    "image": "showcasefrontend\\src\\assets\\images\\image-items\\9.png",
     "category": 6,
     "genre": 0,
     "inGallery": true,
@@ -92,7 +92,7 @@
   {
     "name": "Lillian",
     "estimatedPrice": 44,
-    "image": "http://whatsapp.com",
+    "image": "showcasefrontend\\src\\assets\\images\\image-items\\10.png",
     "category": 1,
     "genre": 2,
     "inGallery": true,
@@ -102,7 +102,7 @@
   {
     "name": "Dolan",
     "estimatedPrice": 49,
-    "image": "http://guardian.co.uk",
+    "image": "showcasefrontend\\src\\assets\\images\\image-items\\11.png",
     "category": 3,
     "genre": 2,
     "inGallery": true,
@@ -112,7 +112,7 @@
   {
     "name": "Janna",
     "estimatedPrice": 60,
-    "image": "https://zoom.us",
+    "image": "showcasefrontend\\src\\assets\\images\\image-items\\12.png",
     "category": 2,
     "genre": 1,
     "inGallery": false,
@@ -122,7 +122,7 @@
   {
     "name": "Upton",
     "estimatedPrice": 42,
-    "image": "http://walmart.com",
+    "image": "showcasefrontend\\src\\assets\\images\\image-items\\13.png",
     "category": 4,
     "genre": 1,
     "inGallery": true,
