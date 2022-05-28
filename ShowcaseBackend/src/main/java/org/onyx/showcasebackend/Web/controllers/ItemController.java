@@ -9,20 +9,30 @@ import org.onyx.showcasebackend.entities.Item;
 import org.onyx.showcasebackend.payload.request.ItemRequest;
 import org.onyx.showcasebackend.payload.request.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class ItemController {
 
     @Autowired
     private ItemService itemService;
 
     @GetMapping(value = "/items")
-    private List<Item> getAllItems(){
-        return itemService.getItems();
+    private ResponseEntity<?>  getAllItems(){
+
+        HashMap<String,Object> data = new HashMap<>();
+        List<Item> items = itemService.getItems();
+        data.put("results", items);
+        data.put("count", items.size());
+        return ResponseEntity.status(HttpStatus.OK).body(data);
+
     }
 
     @GetMapping(value = "/items/{id}")

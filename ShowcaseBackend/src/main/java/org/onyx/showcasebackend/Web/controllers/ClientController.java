@@ -4,10 +4,7 @@ import org.onyx.showcasebackend.Web.services.CartService;
 import org.onyx.showcasebackend.Web.services.ClientService;
 import org.onyx.showcasebackend.dao.ClientRepository;
 import org.onyx.showcasebackend.dao.RoleRepository;
-import org.onyx.showcasebackend.entities.Cart;
-import org.onyx.showcasebackend.entities.Client;
-import org.onyx.showcasebackend.entities.Item;
-import org.onyx.showcasebackend.entities.Role;
+import org.onyx.showcasebackend.entities.*;
 
 import org.onyx.showcasebackend.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class ClientController {
     @Autowired
     private ClientService clientService;
@@ -45,38 +43,42 @@ public class ClientController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("api/clients")
-    private List<Client> getAllClients() {
-        return clientService.getClients();
+    @GetMapping("/clients")
+    private ResponseEntity<?> getAllClients() {
+        HashMap<String,Object> data = new HashMap<>();
+        List<Client> items = clientService.getClients();
+        data.put("results", items);
+        data.put("count", items.size());
+        return ResponseEntity.status(HttpStatus.OK).body(data);
     }
 
     // creating a get mapping that retrieves the detail of a specific client
-    @GetMapping("api/clients/{id}")
+    @GetMapping("/clients/{id}")
     private Client getClients(@PathVariable("id") long clientId) {
         return clientService.getClientById(clientId);
     }
 
     // creating a deleted mapping that deletes a specified client
-    @DeleteMapping("api/clients/{id}")
+    @DeleteMapping("/clients/{id}")
     private void deleteClient(@PathVariable("id") long clientId) {
         clientService.deleteClient(clientId);
     }
 
     // creating post mapping that post the client detail in the database
-    @PostMapping("api/clients")
+    @PostMapping("/clients")
     private long saveClient(@RequestBody Client client) {
         clientService.saveClient(client);
         return client.getId();
     }
 
     // creating put mapping that updates the client detail
-    @PutMapping("api/clients")
+    @PutMapping("/clients")
     private Client update(@RequestBody Client client) {
         clientService.saveClient(client);
         return client;
     }
 
-    @PostMapping("/api/register")
+    @PostMapping("/register")
     public ResponseEntity<?> registerClient(@RequestBody Client client) {
         if (userRepository.existsByEmail(client.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -106,7 +108,7 @@ public class ClientController {
                 .body("User registered successfully!");
     }
 
-    @GetMapping("/api/clients/current")
+    @GetMapping("/clients/current")
     public ResponseEntity<?> currentClient(){
 
         if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
@@ -135,7 +137,7 @@ public class ClientController {
                 .body(data);
     }
 
-    @RequestMapping(value = {"/api/logout"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/logout"}, method = RequestMethod.POST)
     public ResponseEntity<?> logoutDo(HttpServletRequest request ){
         if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")){
             return ResponseEntity.status(HttpStatus.OK)

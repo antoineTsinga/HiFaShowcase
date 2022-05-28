@@ -4,7 +4,7 @@ import logo from "../../assets/images/logo.png";
 export default function InfoAdmin() {
   return (
     <div
-      class="row"
+      className="row"
       style={{
         margin: "10px",
         padding: "20px",
@@ -12,12 +12,12 @@ export default function InfoAdmin() {
         boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.25)",
       }}
     >
-      <div class="col">
+      <div className="col">
         <Box component="img" src={adminPhoto} alt="photo admin" />
         <h3 className="mt-2">Couturière, Styliste</h3>
       </div>
 
-      <div class="col">
+      <div className="col">
         <div>
           <p>
             Bonjour, je m'appelle Chloé j'ai 48 ans, <br />

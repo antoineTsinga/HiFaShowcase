@@ -35,8 +35,8 @@ export default function Footer() {
   return (
     <>
       <div className="footer" {...style.footer}>
-        <div class="container">
-          <div class="row">
+        <div className="container">
+          <div className="row">
             <MDBFooter color="blue" className="font-small pt-4 mt-4">
               <MDBContainer fluid className=" text-md-left">
                 <MDBRow>

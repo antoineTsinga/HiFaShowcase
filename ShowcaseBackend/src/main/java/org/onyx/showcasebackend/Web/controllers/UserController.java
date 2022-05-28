@@ -14,6 +14,7 @@ import java.util.List;
 @EnableGlobalMethodSecurity(
         prePostEnabled = true
 )
+@RequestMapping("/api")
 public  class UserController {
 
     @Autowired

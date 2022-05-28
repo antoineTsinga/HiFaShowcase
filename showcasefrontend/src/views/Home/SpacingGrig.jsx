@@ -9,7 +9,6 @@ export default function SpacingGrid({ nbrchild, spacing, style }) {
         <Grid
           container
           spacing={spacing}
-          xs={14}
           style={{
             display: "flex",
             flexDirection: "row",

@@ -7,20 +7,29 @@ import org.onyx.showcasebackend.entities.Item;
 import org.onyx.showcasebackend.entities.Order;
 import org.onyx.showcasebackend.payload.request.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
     @GetMapping(value = "/orders")
-    private List<Order> getAllOrders(){
-        return orderService.getOrders();
+    private ResponseEntity<?> getAllOrders(){
+        HashMap<String,Object> data = new HashMap<>();
+        List<Order> items = orderService.getOrders();
+        data.put("results", items);
+        data.put("count", items.size());
+        return ResponseEntity.status(HttpStatus.OK).body(data);
+
     }
 
     @GetMapping(value = "/orders/{id}")

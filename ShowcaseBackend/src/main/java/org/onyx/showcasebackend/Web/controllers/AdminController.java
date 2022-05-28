@@ -3,18 +3,26 @@ package org.onyx.showcasebackend.Web.controllers;
 import org.onyx.showcasebackend.Web.services.AdminService;
 import org.onyx.showcasebackend.entities.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class AdminController {
     @Autowired
     private AdminService adminService;
 
     @GetMapping("/admins")
-    private List<Admin> getAllAdmins() {
-        return adminService.getAdmins();
+    private ResponseEntity<?> getAllAdmins() {
+        HashMap<String,Object> data = new HashMap<>();
+        List<Admin> items = adminService.getAdmins();
+        data.put("results", items);
+        data.put("count", items.size());
+        return ResponseEntity.status(HttpStatus.OK).body(data);
     }
 
     // creating a get mapping that retrieves the detail of a specific admin

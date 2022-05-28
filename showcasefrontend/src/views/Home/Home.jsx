@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Box, Button, Typography } from "@mui/material";
 import BannerFemme from "../../assets/images/BannerFemme.png";
@@ -15,6 +15,7 @@ import accessoires from "./../../assets/images/accessoires.png";
 import Galerie from "./Galerie";
 import { Link } from "react-router-dom";
 import InfoAdmin from "./InfoAdmin";
+import Avis from "./Avis";
 
 export default function Home() {
   const primary = "var(--color-primary)";
@@ -35,10 +36,11 @@ export default function Home() {
       },
     },
   };
+
   return (
     <div>
       <div
-        class=" flex-column"
+        className=" flex-column"
         style={{
           width: "100% !important",
           backgroundColor: "var(--color-grey)",
@@ -116,6 +118,7 @@ export default function Home() {
         </div>
       </div>
       <div className="mt-5 d-flex flex-column align-items-center">
+        <h1 className="mb-5">Laissez nous vous aider !</h1>
         <div>
           <SpacingGrid
             spacing={10}
@@ -163,10 +166,12 @@ export default function Home() {
             },
           }}
         >
-          Toute la Collection
+          Passer un commande
         </Button>
 
-        <Galerie />
+        <div className="mt-5 mb-5">
+          <Galerie />
+        </div>
 
         <div>
           <Button
@@ -189,31 +194,57 @@ export default function Home() {
         </div>
 
         <div style={{ backgroundColor: "#E7E7E7", width: "98%" }}>
-          <div class="row">
-            <div class="col">
+          <div className="row">
+            <div className="col">
               <InfoAdmin />
             </div>
             <div
-              class="col mt-5 d-flex flex-row justify-content-center align-items-center"
+              className="col mt-5 d-flex flex-row justify-content-center align-items-center"
               style={{
                 width: "400px",
                 textAlign: "center",
               }}
             >
-              <p>
-                <Typography style={{ fontFamily: "$font", fontSize: "26px" }}>
-                  Contacter le couturier via la{" "}
-                  <Link to="/registration">messagerie interne</Link> du site{" "}
-                  <br />
-                  ou prenez un <Link to="/registration">rendez-vous</Link>
-                </Typography>
-              </p>
+              <Typography style={{ fontFamily: "$font", fontSize: "26px" }}>
+                Contacter le couturier via la{" "}
+                <Link to="/registration">messagerie interne</Link> du site{" "}
+                <br />
+                ou prenez un <Link to="/registration">rendez-vous</Link>
+              </Typography>
             </div>
-            <div class="w-100"></div>
-            <div class="col m-5">
-              <h1>Les avis Clients</h1>
+            <div className="w-100"></div>
+            <div className="col m-5 d-flex flex-row justify-content-center align-items-center">
+              <h1>Les avis clients</h1>
             </div>
-            <div class="col"></div>
+            <div className="col">
+              <div
+                className="mb-5 "
+                style={{ height: "400px", overflowY: "scroll" }}
+              >
+                <Avis />
+              </div>
+              <Button
+                className=" mb-5"
+                variant="contained"
+                sx={{
+                  width: "350px",
+                  color: "var(--color-white)",
+
+                  backgroundColor: "var(--color-primary)",
+                  height: "50px",
+                  fontSize: "1.3em",
+                  transition: "background-color 1s easy-out 1s",
+
+                  "&:hover": {
+                    backgroundColor: "#014A3F",
+
+                    color: "var(--color-white)",
+                  },
+                }}
+              >
+                Ajoutr un commentaire
+              </Button>
+            </div>
           </div>
         </div>
       </div>

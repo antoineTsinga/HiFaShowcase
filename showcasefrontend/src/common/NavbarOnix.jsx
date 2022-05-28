@@ -9,9 +9,7 @@ import logo2 from "../assets/images/logo2.png";
 
 export default function NavbarOnix() {
   const { user, onConnect } = useAppContext();
-  console.log(user);
   const style = {
-    title: { style: { color: "var(--color-white)" } },
     white: { style: { backgroundColor: "var(--color-white)" } },
   };
 
