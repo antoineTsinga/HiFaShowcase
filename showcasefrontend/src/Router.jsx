@@ -9,6 +9,7 @@ import Registration from "./views/Auth/Registration";
 import Home from "./views/Home/Home";
 import TestLogin from "./views/TestLogin";
 import Account from "./views/Account/Account";
+import Items from "./views/Items/Items";
 
 export default function Router() {
   const { onConnect } = useAppContext();
@@ -28,6 +29,7 @@ export default function Router() {
 
         <Route element={<TestLogin />} path="/test" exact />
         <Route element={<Account />} path="/Account" exact />
+        <Route element={<Items />} path="/Items" exact />
       </Routes>
       <Footer />
     </BrowserRouter>
