@@ -23,7 +23,7 @@ export default function NavbarOnix() {
     <>
       <Navbar
         key="md"
-        className="mb-3 "
+        className=""
         style={{
           backgroundColor: "var(--color-primary)",
           color: "#F1F1F1",
