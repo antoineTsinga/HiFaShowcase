@@ -4,12 +4,11 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useAppContext } from "./AppContext";
 import Footer from "./common/Footer";
 import NavbarOnix from "./common/NavbarOnix";
-import PrivateRoute from "./PrivateRoute";
-import Aliments from "./views/Aspic/Aliments";
 import Login from "./views/Auth/Login";
 import Registration from "./views/Auth/Registration";
 import Home from "./views/Home/Home";
 import TestLogin from "./views/TestLogin";
+import Account from "./views/Account/Account";
 
 export default function Router() {
   const { onConnect } = useAppContext();
@@ -28,16 +27,7 @@ export default function Router() {
         />
 
         <Route element={<TestLogin />} path="/test" exact />
-
-        <Route
-          path="/aliments"
-          exact
-          element={
-            <PrivateRoute>
-              <Aliments />
-            </PrivateRoute>
-          }
-        />
+        <Route element={<Account />} path="/Account" exact />
       </Routes>
       <Footer />
     </BrowserRouter>
