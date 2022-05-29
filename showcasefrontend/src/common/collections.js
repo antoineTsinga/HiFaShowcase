@@ -18,15 +18,16 @@ export function useOrders() {
 }
 
 export function useFashionCollectionss() {
-  const handlers = useCollection("fashion_collections", (o1, o2) =>
-    o1.creation_date.localeCompare(o2.creation_date)
-  );
+  const handlers = useCollection("fashion_collections", (o1, o2) => {
+    console.log(o1, o2);
+    return o1.creationAt.localeCompare(o2.creationAt);
+  });
   return handlers;
 }
 
 export function useFaq() {
   const handlers = useCollection("faqs", (o1, o2) =>
-    o1.creation_date.localeCompare(o2.creation_date)
+    o1.creationAt.localeCompare(o2.creationAt)
   );
   return handlers;
 }

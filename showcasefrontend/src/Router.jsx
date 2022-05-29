@@ -9,12 +9,9 @@ import Registration from "./views/Auth/Registration";
 import Home from "./views/Home/Home";
 import TestLogin from "./views/TestLogin";
 import Account from "./views/Account/Account";
-<<<<<<< HEAD
 import PrivateRoute from "./PrivateRoute";
 import Catalogue from "./views/Catalogue/Catalogue";
-=======
 import Items from "./views/Items/Items";
->>>>>>> 8dc19ff7b5afdef72cad6f053b647ed617eb13e8
 
 export default function Router() {
   const { onConnect } = useAppContext();
@@ -42,7 +39,7 @@ export default function Router() {
         />
 
         {/* <Route element={<TestLogin />} path="/test" exact /> */}
-        <Route element={<Account />} path="/Account?{idClient}" exact />
+        <Route element={<Account />} path="/Account/{idClient}" exact />
         <Route element={<TestLogin />} path="/test" exact />
         <Route element={<Items />} path="/Items" exact />
       </Routes>
