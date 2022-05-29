@@ -31,7 +31,7 @@ export function AppContextProvider({ children }) {
     async function fetchData() {
       if (onConnect === false) return;
       const response = await checkUser();
-      if (response.data) {
+      if (response.data?.id) {
         setUsername(response.data.username);
         setUserData(response.data);
         setOnConnect(true);
@@ -39,7 +39,7 @@ export function AppContextProvider({ children }) {
           `clients/${response.data.id}`
         );
 
-        const { data: cart } = await backend.get(`cart/${user1.cart}`);
+        const { data: cart } = await backend.get(`carts/${user1.cart.id}`);
 
         setCart(cart);
         setUser(user1);

@@ -66,7 +66,7 @@ public class CartController {
 
     private CartRequest CartToCartRequest(@RequestBody Cart cart){
 
-        List<Long> items = cart.getArticles().stream().map(item -> item.getId()).collect(Collectors.toList());
+        List<Long> items = cart.getItems().stream().map(item -> item.getId()).collect(Collectors.toList());
 
         return new CartRequest(cart.getId(),cart.getClient().getId(), items);
     }

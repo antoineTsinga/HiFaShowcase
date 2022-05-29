@@ -96,7 +96,7 @@ public class ClientController {
 
         List<Item> items = new ArrayList<>();
         Cart cart = new Cart();
-        cart.setArticles(items);
+        cart.setItems(items);
         client.setCart(cart);
 
         cartService.saveCart(cart);
