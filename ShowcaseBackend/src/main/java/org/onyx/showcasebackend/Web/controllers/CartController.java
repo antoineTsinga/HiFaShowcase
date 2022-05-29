@@ -66,7 +66,6 @@ public class CartController {
     @PutMapping("/carts/{id}")
     private Long updateCart(@RequestBody CartRequest cartRequest,@PathVariable("id") Long id) {
         Cart cart = CartRequestToCart(cartRequest);
-        System.out.println("ici");
         cartService.updateCart(cart,id);
         return cart.getId();
     }
@@ -96,7 +95,6 @@ public class CartController {
 
 
         Client client = clientService.getClientById(cartRequest.getClient());
-        System.out.println(client.getId());
         List<Item> items = new ArrayList<>();
 
         for (long item_id: cartRequest.getItems()) {

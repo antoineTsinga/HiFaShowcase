@@ -5,7 +5,7 @@ import { BsCart2 } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
 import { backend, BACKEND_URL } from "../adapters/apiCalls";
 import { useAppContext } from "../AppContext";
-import logo2 from "../assets/images/logo2.png";
+import logo2 from "../assets/images/AvatarDefault.png";
 
 export default function NavbarOnix() {
   const { user, onConnect } = useAppContext();

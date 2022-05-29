@@ -39,7 +39,7 @@ export default function Router() {
         />
 
         {/* <Route element={<TestLogin />} path="/test" exact /> */}
-        <Route element={<Account />} path="/Account?{idClient}" exact />
+        <Route element={<Account />} path="/Account/{idClient}" exact />
         <Route element={<TestLogin />} path="/test" exact />
         <Route
           element={

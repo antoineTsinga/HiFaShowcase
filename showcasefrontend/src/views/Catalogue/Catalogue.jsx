@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useItems } from "./../../common/collections";
 import CatalogueBanner from "../../assets/images/CatalogueBanner.png";
-import SideMenu from "./SideMenu";
+import FilterMenu from "./FilterMenu";
 import TableItems from "./TableItems";
 
 export default function Catalogue() {
@@ -31,9 +31,19 @@ export default function Catalogue() {
           Faites votre choix et discuter avec le couturier pour des ajoustements
         </h2>
       </div>
-      <div>
-        <SideMenu />
-        <div>
+      <div className="d-flex flex-row">
+        <div
+          style={{
+            width: "30%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "start",
+          }}
+        >
+          <FilterMenu />
+        </div>
+
+        <div style={{ width: "70%" }}>
           <TableItems />
         </div>
       </div>
