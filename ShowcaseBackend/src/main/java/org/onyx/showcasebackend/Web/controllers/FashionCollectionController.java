@@ -1,15 +1,29 @@
 package org.onyx.showcasebackend.Web.controllers;
 
+import net.kaczmarzyk.spring.data.jpa.domain.Between;
+import net.kaczmarzyk.spring.data.jpa.domain.Equal;
+import net.kaczmarzyk.spring.data.jpa.domain.In;
+import net.kaczmarzyk.spring.data.jpa.domain.Like;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.onyx.showcasebackend.Web.services.FashionCollectionService;
 import org.onyx.showcasebackend.entities.Client;
 import org.onyx.showcasebackend.entities.FashionCollection;
+import org.onyx.showcasebackend.payload.request.PagingHeaders;
+import org.onyx.showcasebackend.payload.request.PagingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import javax.transaction.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api")
@@ -17,6 +31,9 @@ public class FashionCollectionController {
     @Autowired
     private FashionCollectionService fashionCollectionService;
 
+
+
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/fashion_collections")
     private ResponseEntity<?> getAllFashionCollections(){
         HashMap<String,Object> data = new HashMap<>();
@@ -25,6 +42,33 @@ public class FashionCollectionController {
         data.put("count", items.size());
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }
+
+
+    @Transactional
+    @GetMapping(value = "/collections2", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Object>> get(
+            @And({
+                    @Spec(path = "name", params = "name", spec = Like.class),
+                    @Spec(path = "creationAt", params = "creationAt", spec = Equal.class),
+                    @Spec(path = "creationAt", params = {"creationAtGt", "creationAtLt"}, spec = Between.class)
+            }) Specification<FashionCollection> spec,
+            Sort sort,
+            @RequestHeader HttpHeaders headers) {
+        final PagingResponse response = fashionCollectionService.get(spec, headers, sort);
+        return new ResponseEntity<>(response.getElements(), returnHttpHeaders(response), HttpStatus.OK);
+    }
+
+    public HttpHeaders returnHttpHeaders(PagingResponse response) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(PagingHeaders.COUNT.getName(), String.valueOf(response.getCount()));
+        headers.set(PagingHeaders.PAGE_SIZE.getName(), String.valueOf(response.getPageSize()));
+        headers.set(PagingHeaders.PAGE_OFFSET.getName(), String.valueOf(response.getPageOffset()));
+        headers.set(PagingHeaders.PAGE_NUMBER.getName(), String.valueOf(response.getPageNumber()));
+        headers.set(PagingHeaders.PAGE_TOTAL.getName(), String.valueOf(response.getPageTotal()));
+        return headers;
+    }
+
 
     @GetMapping(value = "/fashion_collections/{id}")
     private FashionCollection getIFashionCollection(@PathVariable("id") Long id) {
