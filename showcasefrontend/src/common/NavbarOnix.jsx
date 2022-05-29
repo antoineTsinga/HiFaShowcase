@@ -67,7 +67,7 @@ export default function NavbarOnix() {
                     </Nav.Link>
                   )
                 )}
-                <Nav.Link {...style.title} className="p-4">
+                <Nav.Link href="/Items" {...style.title} className="p-4">
                   <BsCart2 />
                 </Nav.Link>
                 <Nav.Link

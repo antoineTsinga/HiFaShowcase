@@ -41,7 +41,15 @@ export default function Router() {
         {/* <Route element={<TestLogin />} path="/test" exact /> */}
         <Route element={<Account />} path="/Account/{idClient}" exact />
         <Route element={<TestLogin />} path="/test" exact />
-        <Route element={<Items />} path="/Items" exact />
+        <Route
+          element={
+            <PrivateRoute>
+              <Items />
+            </PrivateRoute>
+          }
+          path="/Items"
+          exact
+        />
       </Routes>
       <Footer />
     </BrowserRouter>

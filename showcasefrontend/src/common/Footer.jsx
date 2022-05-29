@@ -3,7 +3,6 @@ import Box, { BoxProps } from "@mui/material/Box";
 import GridAutoFlow from "./GridAutoFlow";
 import logo from "../assets/images/logo.png";
 import map from "../assets/images/map.png";
-import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Container, Navbar } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
