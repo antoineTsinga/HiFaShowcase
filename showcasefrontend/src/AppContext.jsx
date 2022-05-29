@@ -11,7 +11,7 @@ export const AppContext = createContext({
   email: null,
   id: null,
   user: {},
-  cart: [],
+  cart: {},
   updateUser: Function,
   updateCart: Function,
 });
@@ -24,25 +24,25 @@ export function AppContextProvider({ children }) {
   const [username, setUsername] = useState(null);
   const [userData, setUserData] = useState({});
   const [user, setUser] = useState({});
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState({});
   const [onConnect, setOnConnect] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
       if (onConnect === false) return;
       const response = await checkUser();
-      if (response.data) {
+      if (response.data?.id) {
         setUsername(response.data.username);
         setUserData(response.data);
         setOnConnect(true);
         const { data: user1 } = await backend.get(
           `clients/${response.data.id}`
         );
+        console.log(user1);
 
-        const { data: cart } = await backend.get(`cart/${user1.cart}`);
-
+        const { data: cart } = await backend.get(`carts/${user1.cart.id}`);
+        await setUser(user1);
         setCart(cart);
-        setUser(user1);
       } else {
         setOnConnect(false);
       }

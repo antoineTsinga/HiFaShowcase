@@ -36,18 +36,18 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(Collection<Item> articles, Client client) {
-        this.items = articles;
+    public Cart(Collection<Item> items, Client client) {
+        this.items = items;
         this.client = client;
     }
 
 
 
-    public Collection<Item> getArticles() {
+    public Collection<Item> getItems() {
         return items;
     }
 
-    public void setArticles(Collection<Item> articles) {
+    public void setItems(Collection<Item> articles) {
         this.items = articles;
     }
 

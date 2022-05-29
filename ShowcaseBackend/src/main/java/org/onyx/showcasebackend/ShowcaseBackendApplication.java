@@ -200,7 +200,7 @@ public class ShowcaseBackendApplication  {
 		String password = passwordEncoder.encode(client.getPassword());
 		client.setPassword(password);
 		Cart cart = new Cart();
-		cart.setArticles(items);
+		cart.setItems(items);
 		client.setCart(cart);
 		Role role = roleRepository.findByName("ROLE_USER");
 		client.setRole(role);
