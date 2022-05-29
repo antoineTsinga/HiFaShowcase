@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const CardItem = () => {
+const CardItem = ({ item }) => {
   return (
     <div>
       <Card sx={{ maxWidth: 345, margin: "5px" }}>
@@ -23,13 +23,10 @@ const CardItem = () => {
         />
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
-            Chapeau
-          </Typography>
-          <Typography gutterBottom variant="h6" component="div">
-            Qté: 1
+            {item.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Prix estimé* : 23,99 €
+            Prix estimé* : {item.estimatedPrice} €
           </Typography>
         </CardContent>
         <CardActions>
