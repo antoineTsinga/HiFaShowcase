@@ -1,15 +1,28 @@
 package org.onyx.showcasebackend.Web.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
 import org.onyx.showcasebackend.Web.services.CartService;
+import org.onyx.showcasebackend.Web.services.ClientService;
+import org.onyx.showcasebackend.dao.CartRepository;
 import org.onyx.showcasebackend.entities.Cart;
 import org.onyx.showcasebackend.entities.Client;
 import org.onyx.showcasebackend.entities.Item;
 import org.onyx.showcasebackend.payload.request.CartRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -17,6 +30,12 @@ import java.util.stream.Collectors;
 public class CartController {
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private CartRepository cartRepository;
+
+    @Autowired
+    private ClientService clientService;
 
     @GetMapping("/carts")
     private List<Cart> getAllCarts() {
@@ -44,16 +63,40 @@ public class CartController {
     }
 
     // creating put mapping that updates the cart detail
-    @PutMapping("/carts")
-    private Long updateCart(@RequestBody CartRequest cartRequest) {
+    @PutMapping("/carts/{id}")
+    private Long updateCart(@RequestBody CartRequest cartRequest,@PathVariable("id") Long id) {
         Cart cart = CartRequestToCart(cartRequest);
-        cartService.saveCart(cart);
+        System.out.println("ici");
+        cartService.updateCart(cart,id);
         return cart.getId();
     }
 
+    @PatchMapping(path = "/carts/{id}", consumes = "application/json-patch+json")
+    public ResponseEntity<Cart> updateCart(@PathVariable Long id, @RequestBody JsonPatch patch) {
+        try {
+            Cart cart = cartRepository.findById(id).orElseThrow(NoClassDefFoundError::new);
+
+            Cart cartPatched = applyPatchToCustomer(patch, cart);
+            cartService.updateCart(cartPatched, cartPatched.getId());
+            return ResponseEntity.ok(cartPatched);
+        } catch (JsonPatchException | JsonProcessingException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (NoClassDefFoundError e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    private Cart applyPatchToCustomer(
+            JsonPatch patch, Cart targetCar) throws JsonPatchException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode patched = patch.apply(objectMapper.convertValue(targetCar, JsonNode.class));
+        return objectMapper.treeToValue(patched, Cart.class);
+    }
     private Cart CartRequestToCart(@RequestBody CartRequest cartRequest){
-        Client client = new Client();
-        client.setId(cartRequest.getClient_id());
+
+
+        Client client = clientService.getClientById(cartRequest.getClient());
+        System.out.println(client.getId());
         List<Item> items = new ArrayList<>();
 
         for (long item_id: cartRequest.getItems()) {
@@ -61,7 +104,11 @@ public class CartController {
             item.setId(item_id);
             items.add(item);
         }
-        return new Cart(items, client);
+        Cart cart = new Cart();
+        cart.setClient(client);
+        cart.setItems(items);
+
+        return cart;
     }
 
     private CartRequest CartToCartRequest(@RequestBody Cart cart){

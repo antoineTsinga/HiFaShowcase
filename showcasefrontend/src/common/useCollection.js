@@ -122,7 +122,7 @@ export default function useCollection(collection, compareFn) {
 
     updateItem: useCallback(async (itemId, data) => {
       try {
-        const { data: nItem } = await backend.patch(
+        const { data: nItem } = await backend.put(
           `${collection}/${itemId}`,
           data
         );

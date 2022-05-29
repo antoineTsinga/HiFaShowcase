@@ -1,29 +1,48 @@
 import { Button, CardActions } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { backend } from "../../adapters/apiCalls";
 import { useAppContext } from "../../AppContext";
 import ActionAreaCard from "../../common/Card";
 import { useCart, useItems } from "../../common/collections";
 
 export default function TableItems() {
-  const { fetchItem: fetchCart, updateItem: updateCart } = useCart();
-  const { cart } = useAppContext();
   const { items, fetchItems } = useItems();
+  const { user } = useAppContext();
+  const [cart, setCart] = useState({});
 
   useEffect(() => {
+    if (!user.id) return;
     async function fetchData() {
-      fetchItems();
+      await fetchItems();
+      let cart1 = {};
+      await backend.get(`carts/${user?.cart?.id}`).then(({ status, data }) => {
+        if (status !== 200) return;
+        cart1 = data;
+      });
+
+      setCart(cart1);
     }
-
     fetchData();
-  }, []);
+  }, [user]);
 
-  function addToCart(item) {
-    console.log("ici");
-    updateCart(cart.id, [...cart.items, item]);
+  async function addToCart(item) {
+    backend
+      .put(`carts/${cart.id}`, {
+        ...cart,
+        items: [...cart.items.map((item) => item.id), item.id],
+      })
+      .then((res) => {
+        console.log(res);
+      });
+
+    setCart({
+      ...cart,
+      items: [...cart.items, item],
+    });
   }
 
   function inCart(item2) {
-    return cart.items?.filter((item1) => item1.id === item2.id)?.lenght > 0;
+    return cart.items?.filter((item1) => item1.id === item2.id)?.length > 0;
   }
 
   return (
@@ -32,7 +51,7 @@ export default function TableItems() {
         <ActionAreaCard
           key={item.id}
           title={item.name}
-          content={`A partir de ${item.estimatedPrice}`}
+          content={`A partir de ${item.estimatedPrice}€`}
           image={item.image}
           alt={item.name}
         >
