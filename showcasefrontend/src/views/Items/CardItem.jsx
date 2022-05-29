@@ -11,29 +11,29 @@ import {
   Typography,
 } from "@mui/material";
 
-const CardItem = () => {
+const CardItem = ({ item, deleteItem }) => {
   return (
     <div>
       <Card sx={{ maxWidth: 345, margin: "5px" }}>
         <CardMedia
           component="img"
           height="140"
-          image={monImage}
-          alt="green iguana"
+          image={process.env.PUBLIC_URL + `/image-items/${item.image}`}
+          alt={item.name}
         />
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
-            Chapeau
-          </Typography>
-          <Typography gutterBottom variant="h6" component="div">
-            Qté: 1
+            {item.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Prix estimé* : 23,99 €
+            Prix estimé* : {item.estimatedPrice} €
           </Typography>
         </CardContent>
         <CardActions>
           <Button
+            onClick={() => {
+              deleteItem(item);
+            }}
             size="small"
             style={{ color: "rgb(183, 0, 0)", marginLeft: "40px" }}
           >
