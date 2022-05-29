@@ -2,7 +2,7 @@ import { MenuItem, MenuList, Paper, Stack } from "@mui/material";
 import React from "react";
 import { Container, Navbar, Offcanvas } from "react-bootstrap";
 
-const SideBar = ({ menu, setSection }) => {
+const SideBar = ({ menu, setSection, style, titre }) => {
   return (
     <div>
       <Navbar key="xxl" bg="none" expand="xxl" className="pt-0">
@@ -26,8 +26,12 @@ const SideBar = ({ menu, setSection }) => {
                     width: "348px",
                     height: "768px",
                     padding: "50px",
+                    ...style,
                   }}
                 >
+                  <h5 style={{ fontWeight: "bold", marginBottom: "40px" }}>
+                    {titre}
+                  </h5>
                   <MenuList
                     spacing={6}
                     style={{
