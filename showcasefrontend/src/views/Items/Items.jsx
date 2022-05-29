@@ -7,8 +7,20 @@ import CardItem from "./CardItem";
 const Items = () => {
   const [cart, setCart] = useState({});
   const { user } = useAppContext();
+  const [sum, setSum] = useState(0);
 
   const basUrl = "../../assets/images/image-items/";
+
+  useEffect(() => {
+    if (!user.id) return;
+
+    let sum = 0;
+    cart.items.forEach((item) => {
+      sum += item.estimatedPrice;
+    });
+
+    setSum(sum);
+  }, [cart]);
 
   useEffect(() => {
     if (!user.id) return;
@@ -68,11 +80,12 @@ const Items = () => {
             paddingBottom: "40px",
             lineHeight: "75px",
             paddingTop: "20px",
+            width: "80%",
           }}
         >
           {cart.items !== [] && cart.items !== null ? (
             cart?.items?.map((item, index) => (
-              <CardItem key={index} item={item} />
+              <CardItem key={index} item={item} deleteItem={deleteItem} />
             ))
           ) : (
             <h1>Votre panier est vide</h1>
@@ -91,7 +104,7 @@ const Items = () => {
         >
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="#000" gutterBottom>
-              Sous total(3 articles sélectionnés) : 431,98 €
+              Sous total({cart?.items?.length} articles sélectionnés) : {sum} €
             </Typography>
 
             <Typography variant="body2">

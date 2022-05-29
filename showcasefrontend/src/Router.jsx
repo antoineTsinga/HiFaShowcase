@@ -12,7 +12,6 @@ import Account from "./views/Account/Account";
 import PrivateRoute from "./PrivateRoute";
 import Catalogue from "./views/Catalogue/Catalogue";
 import Items from "./views/Items/Items";
-import Admin from "./views/Admin/Admin";
 
 export default function Router() {
   const { onConnect } = useAppContext();
@@ -51,7 +50,6 @@ export default function Router() {
           path="/Items"
           exact
         />
-        <Route element={<Admin />} path="/Admin" exact />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -11,15 +11,15 @@ import {
   Typography,
 } from "@mui/material";
 
-const CardItem = ({ item }) => {
+const CardItem = ({ item, deleteItem }) => {
   return (
     <div>
       <Card sx={{ maxWidth: 345, margin: "5px" }}>
         <CardMedia
           component="img"
           height="140"
-          image={monImage}
-          alt="green iguana"
+          image={process.env.PUBLIC_URL + `/image-items/${item.image}`}
+          alt={item.name}
         />
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
@@ -31,6 +31,9 @@ const CardItem = ({ item }) => {
         </CardContent>
         <CardActions>
           <Button
+            onClick={() => {
+              deleteItem(item);
+            }}
             size="small"
             style={{ color: "rgb(183, 0, 0)", marginLeft: "40px" }}
           >
