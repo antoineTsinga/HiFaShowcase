@@ -45,9 +45,9 @@ public class AdminController {
     }
 
     // creating put mapping that updates the admin detail
-    @PutMapping("/admins")
-    private Admin update(@RequestBody Admin admin) {
-        adminService.saveAdmin(admin);
+    @PutMapping("/admins/{id}")
+    private Admin update(@RequestBody Admin admin, @PathVariable("id") long adminId) {
+        adminService.updateAdmin(admin, adminId);
         return admin;
     }
 

@@ -13,6 +13,7 @@ import PrivateRoute from "./PrivateRoute";
 import Catalogue from "./views/Catalogue/Catalogue";
 import Items from "./views/Items/Items";
 import ManageItems from "./views/Admin/ManageItems";
+import Admin from "./views/Admin/Admin";
 
 export default function Router() {
   const { onConnect } = useAppContext();
@@ -24,11 +25,7 @@ export default function Router() {
         <Route element={<Home />} path="/" exact />
         <Route element={<Registration />} path="/Registration" exact />
 
-        <Route
-          element={onConnect ? <Navigate to="/" /> : <Login />}
-          path="/login"
-          exact
-        />
+        <Route element={<Login />} path="/login" exact />
         <Route
           element={
             <PrivateRoute>
@@ -43,6 +40,7 @@ export default function Router() {
         <Route element={<TestLogin />} path="/test" exact />
         <Route element={<Account />} path="/Account" exact />
         <Route element={<TestLogin />} path="/test" exact />
+        <Route element={<Admin />} path="/Admin" exact />
         <Route
           element={
             <PrivateRoute>

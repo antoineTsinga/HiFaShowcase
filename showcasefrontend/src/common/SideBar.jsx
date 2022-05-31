@@ -43,7 +43,10 @@ const SideBar = ({ menu, setSection, style, titre }) => {
                     }}
                   >
                     {menu.map((section) => (
-                      <MenuItem onClick={() => setSection(section)}>
+                      <MenuItem
+                        key={section}
+                        onClick={() => setSection(section)}
+                      >
                         {section}
                       </MenuItem>
                     ))}
