@@ -38,7 +38,6 @@ export function AppContextProvider({ children }) {
         const { data: user1 } = await backend.get(
           `clients/${response.data.id}`
         );
-        console.log(user1);
 
         const { data: cart } = await backend.get(`carts/${user1.cart.id}`);
         await setUser(user1);

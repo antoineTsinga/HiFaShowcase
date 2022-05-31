@@ -50,6 +50,7 @@ export default function useCollection(collection, compareFn) {
   });
 
   const [total, setTotal] = useState(0);
+  const [pageTotal, setPageTotal] = useState(0);
 
   const { isMounted } = useIsMounted();
 
@@ -58,6 +59,7 @@ export default function useCollection(collection, compareFn) {
     items: state.items,
     total,
     loading: state.loading,
+    pageTotal,
 
     fetchItem: useCallback(async (id) => {
       try {
@@ -75,7 +77,7 @@ export default function useCollection(collection, compareFn) {
     }, []),
 
     fetchItems: useCallback(
-      async (params) => {
+      async (params, header) => {
         try {
           if (state.loading) {
             return undefined;
@@ -83,13 +85,16 @@ export default function useCollection(collection, compareFn) {
 
           dispatch({ type: "FETCHING_ITEMS" });
           const {
-            data: { results, count },
+            data: { results, count, pageTotal },
           } = await backend.get(collection, {
             params: { ...(params || {}) },
+            headers: { ...(header || {}) },
           });
 
           if (isMounted.current) {
+            console.log("total", pageTotal);
             setTotal(count);
+            setPageTotal(pageTotal);
             dispatch({ type: "SET_ITEMS", payload: results });
           } else {
             console.debug("The component is not mounted anymore");

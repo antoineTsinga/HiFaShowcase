@@ -3,6 +3,7 @@ package org.onyx.showcasebackend.Web.controllers;
 
 import net.kaczmarzyk.spring.data.jpa.domain.Between;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
+import net.kaczmarzyk.spring.data.jpa.domain.In;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
@@ -36,30 +37,43 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @GetMapping(value = "/items")
-    private ResponseEntity<?>  getAllItems(){
-
-        HashMap<String,Object> data = new HashMap<>();
-        List<Item> items = itemService.getItems();
-        data.put("results", items);
-        data.put("count", items.size());
-        return ResponseEntity.status(HttpStatus.OK).body(data);
-
-    }
+//    @GetMapping(value = "/items")
+//    private ResponseEntity<?>  getAllItems(){
+//
+//        HashMap<String,Object> data = new HashMap<>();
+//        List<Item> items = itemService.getItems();
+//        data.put("results", items);
+//        data.put("count", items.size());
+//        return ResponseEntity.status(HttpStatus.OK).body(data);
+//
+//    }
 
     @Transactional
-    @GetMapping(value = "/items_filter", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/items", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Object>> get(
+    public ResponseEntity<?> get(
             @And({
                     @Spec(path = "name", params = "name", spec = Like.class),
-                    @Spec(path = "genre", params = "genre", spec = Equal.class),
+                    @Spec(path = "genre", params = "genderIn", paramSeparator = ',', spec = In.class),
+                    @Spec(path = "category", params = "categoryIn", paramSeparator = ',', spec = In.class),
+                    @Spec(path="fashionCollection.name", params = "collection", spec = Like.class),
+                    @Spec(path = "isInCatalog", params = "inCatalog", spec= Equal.class),
+                    @Spec(path = "isInGallery", params = "inGallery", spec = Equal.class),
                     @Spec(path = "estimatedPrice", params = {"estimatedPriceGt", "estimatedPriceLt"}, spec = Between.class)
             }) Specification<Item> spec,
             Sort sort,
             @RequestHeader HttpHeaders headers) {
         final PagingResponse response = itemService.get(spec, headers, sort);
-        return new ResponseEntity<>(response.getElements(), returnHttpHeaders(response), HttpStatus.OK);
+
+        HashMap<String,Object> data = new HashMap<>();
+        data.put("results", response.getElements().stream().findFirst().stream().findFirst().get());
+        data.put("count", response.getCount());
+        data.put("pageTotal", response.getPageTotal());
+        data.put("pageNumber", response.getPageNumber());
+        data.put("pageOffset", response.getPageOffset());
+        data.put("pageSize", response.getPageSize());
+
+        return new ResponseEntity<>(data, returnHttpHeaders(response), HttpStatus.OK);
     }
 
 

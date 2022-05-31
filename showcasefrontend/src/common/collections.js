@@ -17,9 +17,8 @@ export function useOrders() {
   return handlers;
 }
 
-export function useFashionCollectionss() {
+export function useFashionCollections() {
   const handlers = useCollection("fashion_collections", (o1, o2) => {
-    console.log(o1, o2);
     return o1.creationAt.localeCompare(o2.creationAt);
   });
   return handlers;

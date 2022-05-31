@@ -42,12 +42,11 @@ export default function Home() {
       <div
         className=" flex-column"
         style={{
-          width: "100% !important",
           backgroundColor: "var(--color-grey)",
         }}
       >
-        {/* <div className="row">
-          <div className="col-sm">
+        <div className="row">
+          <div className="col-sm p-0">
             <div className="position-relative ">
               <Box
                 component="img"
@@ -63,7 +62,7 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <div className="col-sm">
+          <div className="col-sm p-0">
             <div className="position-relative ">
               <Box
                 className=""
@@ -80,13 +79,17 @@ export default function Home() {
               </Button>
             </div>
           </div>
-        </div> */}
+        </div>
 
-        <SpacingGrid
+        {/* <SpacingGrid
           spacing={0}
           nbrchild={[
             <div className="position-relative">
-              <Box component="img" src={BannerFemme} />
+              <Box
+                component="img"
+                src={BannerFemme}
+                style={{ width: "100%" }}
+              />
               <Button
                 className="position-absolute"
                 variant="outlined"
@@ -96,7 +99,11 @@ export default function Home() {
               </Button>
             </div>,
             <div className="position-relative">
-              <Box component="img" src={BannerHomme}></Box>
+              <Box
+                component="img"
+                src={BannerHomme}
+                style={{ width: "100%" }}
+              ></Box>
               <Button
                 className="position-absolute"
                 variant="outlined"
@@ -106,7 +113,7 @@ export default function Home() {
               </Button>
             </div>,
           ]}
-        />
+        /> */}
         <h1
           style={{
             margin: "40px",
