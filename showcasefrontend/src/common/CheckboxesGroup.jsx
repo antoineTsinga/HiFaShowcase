@@ -12,21 +12,19 @@ name =[
 ]
 */
 
-export default function CheckboxesGroup({ title, items }) {
-  console.log(items);
-  const [state, setState] = React.useState(items);
+export default function CheckboxesGroup({ title, items, setItems }) {
+  //  const [state, setState] = React.useState(items);
 
   const styleh1 = { fontStyle: "normal", fontWeight: "700", fontSize: "20px" };
 
   const handleChange = (event) => {
-    console.log("items", items);
     const items2 = items.map((item) => {
-      if (item.name !== event.target.name) return item;
+      if (item.label !== event.target.name) return item;
 
       return { ...item, value: event.target.checked };
     });
-    console.log(items2);
-    setState(items2);
+
+    setItems(items2);
   };
 
   return (
@@ -36,13 +34,13 @@ export default function CheckboxesGroup({ title, items }) {
           {title}
         </FormLabel>
         <FormGroup>
-          {state.map((item) => (
+          {items.map((item) => (
             <FormControlLabel
               key={item.label}
               control={
                 <Checkbox
                   key={item.label}
-                  checked={state.value}
+                  checked={items.value}
                   onChange={handleChange}
                   name={item.label}
                 />

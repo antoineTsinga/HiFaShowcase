@@ -1,9 +1,6 @@
 package org.onyx.showcasebackend.Web.controllers;
 
-import net.kaczmarzyk.spring.data.jpa.domain.Between;
-import net.kaczmarzyk.spring.data.jpa.domain.Equal;
-import net.kaczmarzyk.spring.data.jpa.domain.In;
-import net.kaczmarzyk.spring.data.jpa.domain.Like;
+import net.kaczmarzyk.spring.data.jpa.domain.*;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.onyx.showcasebackend.Web.services.FashionCollectionService;
@@ -33,7 +30,7 @@ public class FashionCollectionController {
 
 
 
-    @ResponseStatus(HttpStatus.OK)
+  /*  @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/fashion_collections")
     private ResponseEntity<?> getAllFashionCollections(){
         HashMap<String,Object> data = new HashMap<>();
@@ -42,21 +39,26 @@ public class FashionCollectionController {
         data.put("count", items.size());
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }
-
+*/
 
     @Transactional
-    @GetMapping(value = "/collections2", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/fashion_collections", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Object>> get(
+    public ResponseEntity<?> get(
             @And({
                     @Spec(path = "name", params = "name", spec = Like.class),
                     @Spec(path = "creationAt", params = "creationAt", spec = Equal.class),
-                    @Spec(path = "creationAt", params = {"creationAtGt", "creationAtLt"}, spec = Between.class)
+                    @Spec(path = "creationAt", params = {"creationAtGt", "creationAtLt"}, spec = DateBetween.class)
             }) Specification<FashionCollection> spec,
             Sort sort,
             @RequestHeader HttpHeaders headers) {
         final PagingResponse response = fashionCollectionService.get(spec, headers, sort);
-        return new ResponseEntity<>(response.getElements(), returnHttpHeaders(response), HttpStatus.OK);
+
+        HashMap<String,Object> data = new HashMap<>();
+        data.put("results", response.getElements().stream().findFirst().stream().findFirst().get());
+        data.put("count", ((List)(response.getElements().stream().findFirst().stream().findFirst().get())).size());
+
+        return new ResponseEntity<>(data, returnHttpHeaders(response), HttpStatus.OK);
     }
 
     public HttpHeaders returnHttpHeaders(PagingResponse response) {

@@ -13,9 +13,10 @@ import { backend } from "../../adapters/apiCalls";
 import { useAppContext } from "../../AppContext";
 import ActionAreaCard from "../../common/Card";
 import { useCart, useItems } from "../../common/collections";
+import { useCatalogueContext } from "./CatalogueContext";
 
-export default function TableItems() {
-  const { items, fetchItems } = useItems();
+export default function TableItems({ params }) {
+  const { items, fetchCatalogueItems } = useCatalogueContext();
   const { user } = useAppContext();
   const [cart, setCart] = useState({});
 
@@ -24,7 +25,6 @@ export default function TableItems() {
   useEffect(() => {
     if (!user.id) return;
     async function fetchData() {
-      await fetchItems();
       let cart1 = {};
       await backend.get(`carts/${user?.cart?.id}`).then(({ status, data }) => {
         if (status !== 200) return;
@@ -42,9 +42,7 @@ export default function TableItems() {
         ...cart,
         items: [...cart.items.map((item) => item.id), item.id],
       })
-      .then((res) => {
-        console.log(res);
-      });
+      .then((res) => {});
 
     setCart({
       ...cart,
@@ -59,9 +57,7 @@ export default function TableItems() {
         ...cart,
         items: items2.map((item) => item.id),
       })
-      .then((res) => {
-        console.log(res);
-      });
+      .then((res) => {});
 
     setCart({
       ...cart,
@@ -108,7 +104,7 @@ export default function TableItems() {
                 style={{ fontFamily: "$font" }}
                 onClick={() => addToCart(item)}
               >
-                Ajouter aux panier
+                Ajouter au panier
               </Button>
             ) : (
               <Button

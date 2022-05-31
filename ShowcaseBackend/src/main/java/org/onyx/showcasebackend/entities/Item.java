@@ -32,8 +32,10 @@ public class Item {
     @ManyToMany
     private Collection<Cart> carts;
 
+    @Enumerated(EnumType.ORDINAL)
     private Category category;
 
+    @Enumerated(EnumType.ORDINAL)
     private Genre genre;
 
 

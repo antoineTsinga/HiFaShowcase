@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### BDD Config ###
-src/main/resources/application.properties
+ShowcaseBackend/src/main/resources/application.properties

@@ -38,8 +38,8 @@ export default function Router() {
           exact
         />
 
-        {/* <Route element={<TestLogin />} path="/test" exact /> */}
-        <Route element={<Account />} path="/Account/{idClient}" exact />
+        <Route element={<TestLogin />} path="/test" exact />
+        <Route element={<Account />} path="/Account" exact />
         <Route element={<TestLogin />} path="/test" exact />
         <Route
           element={

@@ -3,9 +3,11 @@ import React from "react";
 import { Container, Image, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { BsCart2 } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import { backend, BACKEND_URL } from "../adapters/apiCalls";
 import { useAppContext } from "../AppContext";
-import logo2 from "../assets/images/AvatarDefault.png";
+import avatarDefault from "../assets/images/AvatarDefault.png";
+import logo2 from "../assets/images/logo2.png";
 
 export default function NavbarOnix() {
   const { user, onConnect } = useAppContext();
@@ -39,7 +41,8 @@ export default function NavbarOnix() {
               height="24"
               className="ms-2 d-inline-block align-center"
               alt="Logo onix"
-            />
+            />{" "}
+            Onix
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="offcanvasNavbar-expand-md" />
           <Navbar.Offcanvas
@@ -50,23 +53,25 @@ export default function NavbarOnix() {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id="offcanvasNavbarLabel-expand-md">
-                Offcanvas
+                Menu
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="align-items-center justify-content-end flex-grow-1 pe-2">
-                {["Nouveautes", "Femme", "Homme", "Enfant", "Accessoires"].map(
-                  (title) => (
-                    <Nav.Link
-                      key={title}
-                      href={`/Catalogue?${title}=true`}
-                      {...style.title}
-                      className="p-4"
-                    >
-                      {title === "Nouveautes" ? "Nouvautés" : title}
-                    </Nav.Link>
-                  )
-                )}
+                {["Femme", "Homme", "Enfant"].map((title) => (
+                  <Link
+                    className="p-4"
+                    {...style.title}
+                    key={title}
+                    style={{ textDecoration: "none" }}
+                    to={{
+                      pathname: "/Catalogue",
+                      search: `?genre=${title.toLowerCase()}`,
+                    }}
+                  >
+                    {title}
+                  </Link>
+                ))}
                 <Nav.Link href="/Items" {...style.title} className="p-4">
                   <BsCart2 />
                 </Nav.Link>
@@ -77,9 +82,9 @@ export default function NavbarOnix() {
                 >
                   {onConnect ? <FiLogOut onClick={logout} /> : "Connexion"}
                 </Nav.Link>
-                <Nav.Link>
+                <Nav.Link href="/Account">
                   <Image
-                    src={logo2}
+                    src={avatarDefault}
                     fluid
                     roundedCircle
                     bsPrefix
