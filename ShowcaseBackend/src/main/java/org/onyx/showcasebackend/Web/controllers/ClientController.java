@@ -18,11 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -67,15 +64,44 @@ public class ClientController {
     // creating post mapping that post the client detail in the database
     @PostMapping("/clients")
     private long saveClient(@RequestBody Client client) {
+
         clientService.saveClient(client);
         return client.getId();
     }
 
     // creating put mapping that updates the client detail
-    @PutMapping("/clients")
-    private Client update(@RequestBody Client client) {
-        clientService.saveClient(client);
-        return client;
+    @PutMapping("/clients/{id}")
+    private Client update(@PathVariable("id") long clientId, @RequestBody Client client) {
+        Optional<Client> clientOptional = userRepository.findById(clientId);
+        Client clientResolve = clientOptional.get();
+
+        if(clientResolve==null) return null;
+        String firstName = client.getFirstName()!=null?client.getFirstName():clientResolve.getFirstName();
+        String lastName = client.getLastName()!=null? client.getLastName() : clientResolve.getLastName();
+        Long tel = client.getTel()!=null?client.getTel():clientResolve.getTel();
+        String avatar = client.getAvatar()!=null?client.getAvatar():clientResolve.getAvatar();
+        String email = client.getEmail()!=null? client.getEmail() : clientResolve.getEmail();
+        String password = client.getPassword()!=null?client.getPassword():clientResolve.getPassword();
+        Collection<Order> orders = client.getOrders()!=null?client.getOrders():clientResolve.getOrders();
+        Cart cart = client.getCart()!=null?client.getCart():clientResolve.getCart();
+        Role role = clientResolve.getRole();
+
+        Client clientToSave = new Client();
+        clientToSave.setId(clientId);
+        clientToSave.setRole(role);
+        clientToSave.setPassword(password);
+        clientToSave.setCart(cart);
+        clientToSave.setOrders(orders);
+        clientToSave.setAvatar(avatar);
+        clientToSave.setEmail(email);
+        clientToSave.setTel(tel);
+        clientToSave.setFirstName(firstName);
+        clientToSave.setLastName(lastName);
+
+
+
+        clientService.updateClient(clientToSave, clientId);
+        return clientToSave;
     }
 
     @PostMapping("/register")
