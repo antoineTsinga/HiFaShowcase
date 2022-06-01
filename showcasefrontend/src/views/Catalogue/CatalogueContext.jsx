@@ -42,7 +42,7 @@ export function CatalogueContextProvider({ children }) {
     if (!paramsFilter) return;
 
     fetchItems(
-      { inCatalog: true, ...paramsFilter },
+      { ...paramsFilter },
       { "Page-Size": pageSige || 20, "Page-Number": page || 0 }
     );
   }, [paramsFilter, page, pageSige]);
@@ -82,10 +82,7 @@ export function CatalogueContextProvider({ children }) {
 
         items,
         fetchCatalogueItems: (params, header) =>
-          fetchItems(
-            { inCatalog: true, ...params },
-            { ...header, "Page-Size": 5 }
-          ),
+          fetchItems({ ...params }, { ...header, "Page-Size": 5 }),
         pageTotal,
         createItem,
         updateItem,

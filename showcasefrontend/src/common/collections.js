@@ -12,7 +12,7 @@ export function useItems() {
 
 export function useOrders() {
   const handlers = useCollection("orders", (o1, o2) =>
-    o1.creation_date.localeCompare(o2.creation_date)
+    o1.appointment.localeCompare(o2.appointment)
   );
   return handlers;
 }

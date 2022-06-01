@@ -11,6 +11,7 @@ import { BsFillCloudUploadFill } from "react-icons/bs";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AlertDialog from "../../common/Dialogue";
 import CustomNoRowsOverlay from "./../../common/CustomNoRowsOverlay";
+import ShowUser from "./ShowUser";
 
 export default function ManageOrder() {
   const apiRef = useGridApiRef();
@@ -25,23 +26,46 @@ export default function ManageOrder() {
 
   const columns = [
     {
-      field: "createdAt",
-      headerName: "Créé le",
-      type: "dateTime",
-
-      flex: 1,
-    },
-    {
       field: "client",
       headerName: "Client",
 
       flex: 1,
     },
     {
+      field: "appointment",
+      headerName: "RDV",
+      type: "dateTime",
+
+      flex: 1,
+    },
+    {
+      field: "createdAt",
+      headerName: "Créé le",
+      type: "dateTime",
+
+      flex: 1,
+    },
+
+    {
       field: "items",
       headerName: "Articles",
       hide: true,
       flex: 1,
+    },
+    {
+      field: "action",
+      flex: 2,
+      headerName: "Action",
+      sortable: false,
+      renderCell: (params) => {
+        const onClick = (e) => {
+          e.stopPropagation(); // don't select this row after clicking7
+        };
+        console.log(params);
+
+        const id = params.row.client;
+        return <ShowUser userId={id} />;
+      },
     },
   ];
 

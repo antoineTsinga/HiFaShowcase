@@ -2,6 +2,7 @@ import { Button, Card, CardContent, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { backend } from "../../adapters/apiCalls";
 import { useAppContext } from "../../AppContext";
+import Appointment from "./Appointment";
 import CardItem from "./CardItem";
 
 const Items = () => {
@@ -108,12 +109,7 @@ const Items = () => {
             </Typography>
 
             <Typography variant="body2">
-              <Button
-                variant="contained"
-                style={{ width: "100%", backgroundColor: "#000" }}
-              >
-                Prendre rendez-vous
-              </Button>
+              <Appointment cart={cart} client_id={user.id} />
             </Typography>
             <Typography variant="body2" style={{ textAlign: "center" }}>
               OU
