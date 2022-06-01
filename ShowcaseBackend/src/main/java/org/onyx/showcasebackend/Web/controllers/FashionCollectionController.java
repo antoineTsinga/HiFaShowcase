@@ -73,17 +73,17 @@ public class FashionCollectionController {
 
 
     @GetMapping(value = "/fashion_collections/{id}")
-    private FashionCollection getIFashionCollection(@PathVariable("id") Long id) {
+    public FashionCollection getIFashionCollection(@PathVariable("id") Long id) {
         return fashionCollectionService.getFashionCollectionsById(id);
     }
 
     @DeleteMapping(value = "/fashion_collections/{id}")
-    private void deleteFashionCollection(@PathVariable("id") Long id) {
+    public void deleteFashionCollection(@PathVariable("id") Long id) {
         fashionCollectionService.delete(id);
     }
 
     @PostMapping(value = "/fashion_collections")
-    private FashionCollection saveFashionCollection(@RequestBody FashionCollection fashionCollection)
+    public FashionCollection saveFashionCollection(@RequestBody FashionCollection fashionCollection)
     {
         fashionCollectionService.save(fashionCollection);
         return fashionCollection;
@@ -91,7 +91,7 @@ public class FashionCollectionController {
     }
 
     @PutMapping(value = "/fashion_collections/{id}")
-    private FashionCollection update(@RequestBody FashionCollection fashionCollection, @PathVariable("id") Long id) {
+    public FashionCollection update(@RequestBody FashionCollection fashionCollection, @PathVariable("id") Long id) {
         fashionCollectionService.update(fashionCollection, id);
         return fashionCollection;
     }

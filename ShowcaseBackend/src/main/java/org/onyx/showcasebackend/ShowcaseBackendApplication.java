@@ -130,7 +130,9 @@ public class ShowcaseBackendApplication  {
 				// FashionCollections
 				List<FashionCollection> fashionCollections = mapper.readValue(collectionStream, collectionTypeReference);
 				fashionCollections.forEach((fashionCollection)->{
-					if(fashionCollectionRepository.findFashionCollectionByName(fashionCollection.getName())==null){
+					System.out.println(fashionCollectionRepository.findFashionCollectionByName(fashionCollection.getName()));
+					if(fashionCollectionRepository.findFashionCollectionByName(fashionCollection.getName()).size()==0){
+
 						fashionCollectionRepository.save(fashionCollection);
 					}
 				});

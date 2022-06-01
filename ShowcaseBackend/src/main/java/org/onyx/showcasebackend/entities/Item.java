@@ -52,14 +52,13 @@ public class Item {
     }
 
 
-    public Item(String name, int estimatedPrice, boolean isInCatalog, boolean isInGallery, String image, FashionCollection fashionCollection, Collection<Cart> carts, Category category, Genre genre) {
+    public Item(String name, int estimatedPrice, boolean isInCatalog, boolean isInGallery, String image, FashionCollection fashionCollection,  Category category, Genre genre) {
         this.name = name;
         this.estimatedPrice = estimatedPrice;
         this.isInCatalog = isInCatalog;
         this.isInGallery = isInGallery;
         this.image = image;
         this.fashionCollection = fashionCollection;
-        this.carts = carts;
         this.category = category;
         this.genre = genre;
     }

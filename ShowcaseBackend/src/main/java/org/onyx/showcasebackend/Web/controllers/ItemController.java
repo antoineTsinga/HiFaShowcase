@@ -89,17 +89,17 @@ public class ItemController {
     }
 
     @GetMapping(value = "/items/{id}")
-    private Item getItem(@PathVariable("id") Long id) {
+    public Item getItem(@PathVariable("id") Long id) {
         return itemService.getItemsById(id);
     }
 
     @DeleteMapping(value = "/items/{id}")
-    private void deleteItem(@PathVariable("id") Long id) {
+    public void deleteItem(@PathVariable("id") Long id) {
         itemService.delete(id);
     }
 
     @PostMapping(value = "/items")
-    private Long saveItem(@RequestBody ItemRequest itemRequest)
+    public Long saveItem(@RequestBody ItemRequest itemRequest)
     {
         Item item = ItemRequestToItem(itemRequest);
         itemService.save(item);
@@ -109,7 +109,7 @@ public class ItemController {
     }
 
     @PutMapping(value = "/items/{id}")
-    private Long updateItem(@RequestBody ItemRequest itemRequest, @PathVariable("id") Long id)
+    public Long updateItem(@RequestBody ItemRequest itemRequest, @PathVariable("id") Long id)
     {
         Item item = ItemRequestToItem(itemRequest);
         itemService.update(item, id);
@@ -123,7 +123,7 @@ public class ItemController {
         fashionCollection.setId(itemRequest.getFashionCollection());
         Category category = Arrays.stream(Category.values()).filter(category1 -> category1.getCode()==itemRequest.getCategory()).findFirst().get();
         Genre genre = Arrays.stream(Genre.values()).filter(genre1 -> genre1.getCode()==itemRequest.getGenre()).findFirst().get();
-        return new Item(itemRequest.getName(),itemRequest.getEstimatedPrice(),itemRequest.getInCatalog(),itemRequest.getInGallery(), itemRequest.getImage(), fashionCollection,null,category,genre);
+        return new Item(itemRequest.getName(),itemRequest.getEstimatedPrice(),itemRequest.getInCatalog(),itemRequest.getInGallery(), itemRequest.getImage(), fashionCollection,category,genre);
     }
 
 
