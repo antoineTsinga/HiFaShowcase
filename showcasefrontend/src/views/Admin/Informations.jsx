@@ -1,99 +1,240 @@
-import { Box, Button } from "@mui/material";
-import React from "react";
+import { Box, Button, FormLabel, TextField } from "@mui/material";
+import logo from "../../assets/images/logo.png";
+import React, { useEffect, useState } from "react";
+import { useAppContext } from "../../AppContext";
+import { backend } from "../../adapters/apiCalls";
 
 const Informations = () => {
+  const { user } = useAppContext();
+  const style = { width: "50%" };
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    tel: "",
+    avatar: "",
+    email: "",
+    password: "",
+    description: "",
+  });
+
+  useEffect(() => {
+    if (!user) return;
+    setUserData({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      password: user.password,
+      tel: user.tel,
+      avatar: user.avatar,
+      description: user.description,
+    });
+    console.log(userData);
+  }, [user]);
+
+  function handleChange(e) {
+    e.preventDefault();
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  }
+
+  function setInfoAdmin() {
+    backend.put(`admins/${user.id}`, { ...userData }).then((res) => {});
+  }
+
   return (
     <div
-      className="container"
       style={{
-        marginBottom: "190px",
-        marginTop: "77px",
-        backgroundColor: "#E5E5E5",
-        marginRight: "50px",
-        padding: "100px",
-        paddingTop: "89px",
+        width: "90%",
+        maxWidth: "1485px",
+        textAlign: "center",
+        fontFamily: "$font",
       }}
     >
-      <div className="row">
-        <h2 style={{ fontWeight: "bold" }}>Informations personnelles</h2>
-        <div
-          className="col-md-8"
+      <Box>
+        <Box
+          component="img"
+          sx={{
+            height: "105px",
+            width: "194px",
+            marginBottom: 5,
+          }}
+          alt="Logo Onix"
+          src={logo}
+        />
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
           style={{
             display: "flex",
+            justifyContent: "space-around",
             flexDirection: "row",
-            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
           }}
         >
-          <div>
-            <p>Nom :</p>
-            <p>Prenom : </p>
-            <p>Télephone :</p>
-            <p>Email :</p>
-            <p>Mot de passe : </p>
-            <p>Description :</p>
-          </div>
-          <div>
-            <p>PAYONG EZOZOH</p>
-            <p>Aubin</p>
-            <p>0734568790</p>
-            <p>aubin@gmail.com</p>
-            <p>********</p>
-          </div>
-          <div>
-            <p>
-              <a href="#" style={{ color: "red", textDecoration: "none" }}>
-                {" "}
-                Modifier
-              </a>
-            </p>
-            <p>
-              <a href="#" style={{ color: "red", textDecoration: "none" }}>
-                {" "}
-                Modifier
-              </a>
-            </p>
-            <p>
-              <a href="#" style={{ color: "red", textDecoration: "none" }}>
-                {" "}
-                Modifier
-              </a>
-            </p>
-            <p>
-              <a href="#" style={{ color: "red", textDecoration: "none" }}>
-                {" "}
-                Modifier
-              </a>
-            </p>
-            <p>
-              <a href="#" style={{ color: "red", textDecoration: "none" }}>
-                {" "}
-                Modifier
-              </a>
-            </p>
-          </div>
-        </div>
-        <div className="col-md-12">
-          <p>
-            Salut je m'appelle Chloe blanchon, je suis passionné par le desssin
-          </p>
-        </div>
-        <div className="col-md-4">
-          <Box
-            component="img"
-            sx={{
-              height: "100px",
-              width: "150px",
-              marginBottom: 5,
-              marginLeft: "25px",
-            }}
-            alt="Position Onix"
-            src="./logo192.png"
+          <FormLabel htmlFor="outlined-basic" style={{ fontWeight: "bold" }}>
+            Nom :{" "}
+          </FormLabel>
+          <TextField
+            label=""
+            variant="outlined"
+            name="firstName"
+            value={userData.firstName}
+            onChange={handleChange}
+            style={style}
           />
-          <Button variant="outlined" style={{ width: "200px" }}>
-            Changer d'avatar
-          </Button>
-        </div>
-      </div>
+        </Box>
+
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            flexDirection: "row",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <FormLabel htmlFor="outlined-basic" style={{ fontWeight: "bold" }}>
+            Prenom :{" "}
+          </FormLabel>
+          <TextField
+            label=""
+            variant="outlined"
+            name="lastName"
+            value={userData.lastName}
+            onChange={handleChange}
+            style={style}
+          />
+        </Box>
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            flexDirection: "row",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <FormLabel htmlFor="outlined-basic" style={{ fontWeight: "bold" }}>
+            Téléphone :{" "}
+          </FormLabel>
+          <TextField
+            label=""
+            variant="outlined"
+            name="tel"
+            value={userData.tel}
+            onChange={handleChange}
+            style={style}
+          />
+        </Box>
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            flexDirection: "row",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <FormLabel htmlFor="outlined-basic" style={{ fontWeight: "bold" }}>
+            Email :{" "}
+          </FormLabel>
+          <TextField
+            label=""
+            variant="outlined"
+            name="email"
+            value={userData.email}
+            onChange={handleChange}
+            style={style}
+          />
+        </Box>
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            flexDirection: "row",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <FormLabel htmlFor="outlined-basic" style={{ fontWeight: "bold" }}>
+            Mot de passe :{" "}
+          </FormLabel>
+          <TextField
+            label=""
+            variant="outlined"
+            type="password"
+            value={userData.password}
+            onChange={handleChange}
+            name="password"
+            autoComplete="new-password"
+            style={style}
+          />
+        </Box>
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            flexDirection: "row",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <FormLabel htmlFor="outlined-basic" style={{ fontWeight: "bold" }}>
+            Description :{" "}
+          </FormLabel>
+          <TextField
+            id="outlined-multiline-static"
+            label=""
+            multiline
+            rows={7}
+            value={userData.description}
+            onChange={handleChange}
+            name="description"
+            style={style}
+          />
+        </Box>
+        <Button
+          variant="outlined"
+          style={{ marginLeft: "480px", marginTop: "10px" }}
+          onClick={() => setInfoAdmin()}
+        >
+          Mettre à jour
+        </Button>
+      </Box>
     </div>
   );
 };

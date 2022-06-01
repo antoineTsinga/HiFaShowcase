@@ -35,13 +35,16 @@ export function AppContextProvider({ children }) {
         setUsername(response.data.username);
         setUserData(response.data);
         setOnConnect(true);
-        const { data: user1 } = await backend.get(
-          `clients/${response.data.id}`
-        );
+        const { data: user1 } = await backend.get(`users/${response.data.id}`);
+        console.log(response.data["Authorities"]);
 
-        const { data: cart } = await backend.get(`carts/${user1.cart.id}`);
+        if (!response.data["Authorities"][0].authority === "ROLE_ADMIN") {
+          const { data: cart } = await backend.get(`carts/${user1.cart.id}`);
+
+          setCart(cart);
+        }
+
         await setUser(user1);
-        setCart(cart);
       } else {
         setOnConnect(false);
       }
