@@ -16,7 +16,7 @@ export default function NavbarOnix() {
   };
 
   function logout() {
-    backend.get(`${BACKEND_URL}/logout`);
+    backend.get(`/logout`);
   }
 
   return (

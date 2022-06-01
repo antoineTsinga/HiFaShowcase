@@ -77,7 +77,7 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "api/clients/current").permitAll()
                 .and()
                 .formLogin().successHandler(new Securityhandler())
-                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout"))
+                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/api/logout"))
                 .logoutSuccessUrl("/login");
 
     }

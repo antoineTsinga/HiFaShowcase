@@ -22,7 +22,16 @@ export default function Router() {
     <BrowserRouter>
       {!isAdmin ? <NavbarOnix /> : null}
       <Routes>
-        <Route element={<Home />} path="/" exact />
+        <Route
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+          path="/"
+          exact
+        />
+
         <Route element={<Registration />} path="/Registration" exact />
 
         <Route element={<Login />} path="/login" exact />

@@ -19,7 +19,6 @@ import Avis from "./Avis";
 
 export default function Home() {
   const primary = "var(--color-primary)";
-  console.log(modelCardFemme);
   const style = {
     btn: {
       border: "4px solid var(--color-white)",

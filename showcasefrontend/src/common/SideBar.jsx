@@ -1,8 +1,13 @@
-import { MenuItem, MenuList, Paper, Stack } from "@mui/material";
+import { Link, MenuItem, MenuList, Paper, Stack } from "@mui/material";
 import React from "react";
 import { Container, Navbar, Offcanvas } from "react-bootstrap";
+import { backend } from "../adapters/apiCalls";
+import Deconnexion from "./../views/Account/Deconnexion";
 
 const SideBar = ({ menu, setSection, style, titre }) => {
+  function logout() {
+    backend.get(`/logout`);
+  }
   return (
     <div>
       <Navbar key="xl" bg="none" expand="xl" className="pt-0">
@@ -50,6 +55,9 @@ const SideBar = ({ menu, setSection, style, titre }) => {
                         {section}
                       </MenuItem>
                     ))}
+                    <MenuItem key={"deconnexion"} onClick={logout}>
+                      <Link href="/login">Déconnexion</Link>
+                    </MenuItem>
                   </MenuList>
                 </Paper>
               </Stack>

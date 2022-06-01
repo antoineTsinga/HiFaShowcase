@@ -15,7 +15,6 @@ const Admin = () => {
     "Commandes",
     "Messagerie",
     "Gérer la FAQ",
-    "Deconnexion",
   ];
   const titre = "Interface administrateur";
   return (
@@ -48,8 +47,6 @@ const Admin = () => {
         <Messagerie />
       ) : section === "Gérer la FAQ" ? (
         <FAQ />
-      ) : section === "Deconnexion" ? (
-        <Deconnexion />
       ) : null}
     </div>
   );

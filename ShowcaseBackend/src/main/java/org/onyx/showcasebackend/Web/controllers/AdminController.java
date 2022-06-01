@@ -59,6 +59,7 @@ public class AdminController {
         Optional<Admin> clientOptional = userRepository.findById(adminId);
         Admin clientResolve = clientOptional.get();
 
+        if(clientResolve==null) return null;
         String firstName = client.getFirstName()!=null?client.getFirstName():clientResolve.getFirstName();
         String lastName = client.getLastName()!=null? client.getLastName() : clientResolve.getLastName();
         Long tel = client.getTel()!=null?client.getTel():clientResolve.getTel();
@@ -68,6 +69,7 @@ public class AdminController {
         String password = client.getPassword()!=null?client.getPassword():clientResolve.getPassword();
         Role role = clientResolve.getRole();
 
+        System.out.println(role);
 
         Admin clientToSave = new Admin();
         clientToSave.setId(adminId);

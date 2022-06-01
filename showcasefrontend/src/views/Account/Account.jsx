@@ -9,14 +9,7 @@ import SupprimerCompte from "./SupprimerCompte";
 
 const Account = () => {
   const [section, setSection] = useState("Profil");
-  const menu = [
-    "Profil",
-    "Achats",
-    "Messagerie",
-    "FAQ",
-    "Deconnexion",
-    "Supprimer le compte",
-  ];
+  const menu = ["Profil", "Achats", "Messagerie", "FAQ", "Supprimer le compte"];
   return (
     <div
       style={{
@@ -34,8 +27,6 @@ const Account = () => {
         <Messagerie />
       ) : section === "FAQ" ? (
         <FAQ />
-      ) : section === "Deconnexion" ? (
-        <Deconnexion />
       ) : section === "Supprimer le compte" ? (
         <SupprimerCompte />
       ) : null}

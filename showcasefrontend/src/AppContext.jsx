@@ -37,7 +37,6 @@ export function AppContextProvider({ children }) {
         setUserData(response.data);
         setOnConnect(true);
         const { data: user1 } = await backend.get(`users/${response.data.id}`);
-        console.log(response.data["Authorities"]);
 
         setIsAdmin(response.data["Authorities"][0].authority === "ROLE_ADMIN");
 
