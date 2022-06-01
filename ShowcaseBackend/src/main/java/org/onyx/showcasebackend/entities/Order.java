@@ -20,6 +20,8 @@ public class Order {
     @Column(name="created_at", nullable = false, updatable = false)
     private Date createdAt;
 
+    private Date appointment;
+
     @ManyToOne
     @JoinColumn()
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -33,7 +35,8 @@ public class Order {
 
     }
 
-    public Order(Client client, Collection<Item> items) {
+    public Order(Date appointment, Client client, Collection<Item> items) {
+        this.appointment = appointment;
         this.client = client;
         this.items = items;
     }
@@ -72,5 +75,13 @@ public class Order {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Date getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Date appointment) {
+        this.appointment = appointment;
     }
 }

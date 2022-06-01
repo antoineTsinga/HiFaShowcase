@@ -26,6 +26,7 @@ export function AppContextProvider({ children }) {
   const [user, setUser] = useState({});
   const [cart, setCart] = useState({});
   const [onConnect, setOnConnect] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -37,6 +38,8 @@ export function AppContextProvider({ children }) {
         setOnConnect(true);
         const { data: user1 } = await backend.get(`users/${response.data.id}`);
         console.log(response.data["Authorities"]);
+
+        setIsAdmin(response.data["Authorities"][0].authority === "ROLE_ADMIN");
 
         if (!response.data["Authorities"][0].authority === "ROLE_ADMIN") {
           const { data: cart } = await backend.get(`carts/${user1.cart.id}`);
@@ -58,6 +61,7 @@ export function AppContextProvider({ children }) {
         username,
         onConnect,
 
+        isAdmin,
         setOnConnect,
         userData,
         user,
