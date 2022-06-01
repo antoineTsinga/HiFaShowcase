@@ -5,7 +5,7 @@ import { Container, Navbar, Offcanvas } from "react-bootstrap";
 const SideBar = ({ menu, setSection, style, titre }) => {
   return (
     <div>
-      <Navbar key="xxl" bg="none" expand="xxl" className="pt-0">
+      <Navbar key="xl" bg="none" expand="xl" className="pt-0">
         <Container fluid className="p-0">
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-xxl`} />
           <Navbar.Offcanvas
