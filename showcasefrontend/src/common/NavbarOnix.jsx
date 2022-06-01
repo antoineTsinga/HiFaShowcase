@@ -36,7 +36,7 @@ export default function NavbarOnix() {
         <Container fluid>
           <Navbar.Brand href="/">
             <img
-              src={user.avatar ? user.avatar : logo2}
+              src={logo2}
               width="35"
               height="24"
               className="ms-2 d-inline-block align-center"
@@ -84,7 +84,11 @@ export default function NavbarOnix() {
                 </Nav.Link>
                 <Nav.Link href="/Account">
                   <Image
-                    src={avatarDefault}
+                    src={
+                      (user.avatar !== "") | (user.avatar !== null)
+                        ? user.avatar
+                        : avatarDefault
+                    }
                     fluid
                     roundedCircle
                     bsPrefix

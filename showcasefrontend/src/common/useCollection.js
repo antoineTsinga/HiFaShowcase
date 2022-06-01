@@ -92,7 +92,7 @@ export default function useCollection(collection, compareFn) {
           });
 
           if (isMounted.current) {
-            console.log("total", pageTotal);
+            console.log("total", count);
             setTotal(count);
             setPageTotal(pageTotal);
             dispatch({ type: "SET_ITEMS", payload: results });

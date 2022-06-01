@@ -1,6 +1,7 @@
 import React from "react";
-import { GridOverlay } from "@mui/x-data-grid-pro";
+
 import { Box } from "@mui/material";
+import { GridOverlay } from "@mui/x-data-grid";
 
 function CustomNoRowsOverlay() {
   return (
